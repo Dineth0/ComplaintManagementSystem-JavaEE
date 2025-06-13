@@ -44,19 +44,18 @@
                         <input type="password" class="form-control rounded-3" id="password" name="password" placeholder="Enter your password" required>
                     </div>
                     <div class="mb-3">
-                        <label for="role" class="form-label">Role</label>
-                        <input type="text" class="form-control rounded-3" id="role" name="role" placeholder="Enter user or admin" required>
+                        <select class="form-control" name="role"  id="role" required>
+                            <option value="">Select Role</option>
+                            <option value="user">User</option>
+                            <option value="admin">Admin</option>
+                        </select>
                     </div>
                     <div class="d-grid">
-                        <button type="submit" class="btn btn-primary rounded-3">Login</button>
+                        <button type="submit" class="btn btn-primary rounded-3" id="login">Login</button>
                     </div>
-<%--                    <%--%>
-<%--                        String error = request.getParameter("error");--%>
-<%--                        if (error != null) {--%>
-<%--                    %>--%>
-<%--                    <div class="alert alert-danger mt-3 rounded-3" role="alert">--%>
-<%--                        Invalid username or password.--%>
-<%--                    </div>--%>
+                    <% if (request.getParameter("error") != null) { %>
+                    <p class="text-danger mt-2">Invalid credentials</p>
+                    <% } %>
 
                 </form>
             </div>
