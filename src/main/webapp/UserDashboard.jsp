@@ -16,8 +16,99 @@
 <html>
 <head>
     <title>Title</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT" crossorigin="anonymous">
+
+    <style>
+        body{
+            background: linear-gradient(to right,#222831, #948979)
+        }
+    </style>
+
 </head>
 <body>
-    <h1>User</h1>
+<main class="col-md-12 ms-sm-auto px-4">
+    <div class="pt-5">
+        <h1 class="text-center" style="color: white">Welcome to the User Dashboard</h1>
+
+        <div class="container-fluid searchBarParent my-4">
+            <div class="input-group mb-3 searchBar">
+                <input id="inputSearch" type="text" class="searchInputField form-control" placeholder="Search Your Complaints" aria-label="Recipient's username" aria-describedby="button-addon2">
+                <button class="btn btn-outline-secondary searchBtn" type="button" id="button-addonC">Search</button>
+            </div>
+        </div>
+
+        <div class="card mt-5 shadow-sm">
+            <div class="card-header  text-black">
+                <h5 class="mb-0 text-center">Save Complaints</h5>
+            </div>
+            <div class="card-body">
+                <form id="employee-form" enctype="multipart/form-data">
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label for="name" class="form-label">User Name</label>
+                            <input type="text" class="form-control" id="name" placeholder="Enter name" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="title" class="form-label">Complaint Title</label>
+                            <textarea class="form-control" id="title" placeholder="Enter Title" required></textarea>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="complaint" class="form-label">Complaint</label>
+                            <textarea t class="form-control" id="complaint" placeholder="Enter Complaint" required></textarea>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="date" class="form-label">Employee Image</label>
+                            <input type="date" name="submitdate" class="form-control" id="date" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="status" class="form-label">Complaint Status</label>
+                            <select class="form-control" name="status"  id="status" required>
+                                <option value=""></option>
+                                <option value="sent">sent</option>
+                                <option value="seen">seen</option>
+                                <option value="resolved">Resolved</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="text-center mt-4">
+                        <button type="button" id="save" class="btn btn-black">Submit Complaint</button>
+                    </div>
+                    <input type="hidden" id="employee-id" />
+                </form>
+            </div>
+        </div>
+
+    </div>
+    <div class="card mt-5 shadow-sm">
+
+        <div class="card-body">
+            <div class="table-responsive" id="table">
+                <table class="table table-hover table-bordered align-middle text-center" id="employee-table">
+                    <thead class="table-light">
+                    <tr>
+                        <th>Action</th>
+                        <th>User Name</th>
+                        <th>Title</th>
+                        <th>Complaint</th>
+                        <th>Date</th>
+                    </tr>
+                    </thead>
+                    <tbody id="tbody">
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</main>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO" crossorigin="anonymous"></script>
+
+<script>
+    const today = new Date().toISOString().split("T")[0];
+    document.getElementById('date').value = today;
+</script>
+
 </body>
 </html>
