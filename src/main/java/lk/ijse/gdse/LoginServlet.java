@@ -7,6 +7,8 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import lk.ijse.gdse.dao.LoginDAO;
+import lk.ijse.gdse.dao.impl.LoginDAOImpl;
 import lk.ijse.gdse.dto.UserDTO;
 import org.apache.commons.dbcp2.BasicDataSource;
 
@@ -26,36 +28,32 @@ public class LoginServlet extends HttpServlet {
         ServletContext servletContext = req.getServletContext();
         BasicDataSource bds = (BasicDataSource) servletContext.getAttribute("dataSource");
 
-        String username = req.getParameter("username");
+        String name = req.getParameter("username");
         String password = req.getParameter("password");
         String role = req.getParameter("role");
 
+        LoginDAO loginDAO = new LoginDAOImpl(bds);
+
         try {
-            Connection conn = bds.getConnection();
-            PreparedStatement ps = conn.prepareStatement("select * from User where name=? and password=? and role=?");
-            ps.setString(1, username);
-            ps.setString(2, password);
-            ps.setString(3, role);
+            UserDTO user = loginDAO.Login(name, password, role);
 
-            ResultSet rs=ps.executeQuery();
-
-            if(rs.next()) {
-                String id = rs.getString("id");
+            if (user != null) {
                 HttpSession session = req.getSession();
-                session.setAttribute("user", new UserDTO(id,username,password,role));
+                session.setAttribute("user", user);
+
 
                 if(role.equalsIgnoreCase("admin")) {
-                    session.setAttribute("admin", new UserDTO(id,username,password,role));
+                    session.setAttribute("admin", user);
                     resp.sendRedirect("AdminDashboard.jsp");
                 }else {
-                    session.setAttribute("user", new UserDTO(id,username,password,role));
+                    session.setAttribute("user", user);
                     //resp.sendRedirect("UserDashboard.jsp");
                     resp.sendRedirect("Complain");
                 }
             }else {
-                resp.sendRedirect("Login.jsp? error=true");
+                resp.sendRedirect("login.jsp? error=true");
             }
-        } catch (SQLException e) {
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
 
