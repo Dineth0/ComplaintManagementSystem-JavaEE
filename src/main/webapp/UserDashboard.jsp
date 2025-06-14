@@ -27,14 +27,6 @@
     <div class="pt-5">
         <h1 class="text-center" style="color: white">Welcome to the User Dashboard</h1>
 
-        <form method="get" action="Complain">
-            <div class="container-fluid searchBarParent my-4">
-                <div class="input-group mb-3 searchBar">
-                    <input id="inputSearch" type="text" name="search" class="searchInputField form-control" placeholder="Search Your Complaints" aria-label="Recipient's username" aria-describedby="button-addon2">
-                    <button class="btn btn-outline-secondary searchBtn" type="submit" id="button-addonC">Search</button>
-                </div>
-            </div>
-        </form>
 
         <div class="card mt-5 shadow-sm">
             <div class="card-header  text-black">

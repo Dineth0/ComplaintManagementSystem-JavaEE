@@ -7,6 +7,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lk.ijse.gdse.dto.ComplaintDTO;
+import lk.ijse.gdse.dto.UserDTO;
 import org.apache.commons.dbcp2.BasicDataSource;
 
 import java.io.IOException;
@@ -39,13 +40,14 @@ public class ComplaintServlet extends HttpServlet {
 
             if("save".equalsIgnoreCase(action)) {
 
-
-                PreparedStatement ps = conn.prepareStatement("INSERT INTO Complaint (id, username, title, complaint,date) VALUES (?,?,?,?,?)");
+                UserDTO user = (UserDTO) req.getSession().getAttribute("user");
+                PreparedStatement ps = conn.prepareStatement("INSERT INTO Complaint (id, uid, username, title, complaint,date) VALUES (?,?,?,?,?,?)");
                 ps.setString(1, UUID.randomUUID().toString());
-                ps.setString(2, userName);
-                ps.setString(3, title);
-                ps.setString(4, complaint);
-                ps.setString(5, date);
+                ps.setString(2, user.getId());
+                ps.setString(3, userName);
+                ps.setString(4, title);
+                ps.setString(5, complaint);
+                ps.setString(6, date);
                 result = ps.executeUpdate();
 
             }else if("update".equalsIgnoreCase(action)) {
@@ -64,7 +66,7 @@ public class ComplaintServlet extends HttpServlet {
             }
 
             if(result > 0){
-                resp.sendRedirect("UserDashboard.jsp?status=success");
+                resp.sendRedirect("Complain?status=success");
             }else {
                 resp.sendRedirect("UserDashboard.jsp?status=fail");
             }
@@ -78,7 +80,7 @@ public class ComplaintServlet extends HttpServlet {
         }
     }
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String search = req.getParameter("search");
+
 
         ServletContext servletContext = req.getServletContext();
         BasicDataSource bds = (BasicDataSource) servletContext.getAttribute("dataSource");
@@ -86,13 +88,10 @@ public class ComplaintServlet extends HttpServlet {
         try{
             Connection conn = bds.getConnection();
             List<ComplaintDTO> complaints = new ArrayList<>();
+            UserDTO user = (UserDTO) req.getSession().getAttribute("user");
             PreparedStatement preparedStatement;
-            if(search != null && !search.trim().isEmpty()){
-                preparedStatement = conn.prepareStatement("SELECT * FROM Complaint WHERE username = ?");
-                preparedStatement.setString(1, search.trim());
-            }else {
-                preparedStatement = conn.prepareStatement("SELECT * FROM Complaint");
-            }
+                preparedStatement = conn.prepareStatement("SELECT * FROM Complaint WHERE uid = ?");
+            preparedStatement.setString(1, user.getId());
             ResultSet resultSet = preparedStatement.executeQuery();
             while(resultSet.next()){
                 ComplaintDTO complaintDTO = new ComplaintDTO();
