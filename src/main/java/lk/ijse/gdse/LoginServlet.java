@@ -49,7 +49,8 @@ public class LoginServlet extends HttpServlet {
                     resp.sendRedirect("AdminDashboard.jsp");
                 }else {
                     session.setAttribute("user", new UserDTO(id,username,password,role));
-                    resp.sendRedirect("UserDashboard.jsp");
+                    //resp.sendRedirect("UserDashboard.jsp");
+                    resp.sendRedirect("Complain");
                 }
             }else {
                 resp.sendRedirect("Login.jsp? error=true");
