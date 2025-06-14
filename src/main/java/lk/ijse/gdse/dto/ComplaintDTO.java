@@ -15,5 +15,5 @@ public class ComplaintDTO {
     private String userName;
     private String title;
     private String Complaint;
-    private Date date;
+    private String date;
 }

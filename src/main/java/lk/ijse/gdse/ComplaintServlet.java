@@ -6,6 +6,8 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import lk.ijse.gdse.dao.ComplaintDAO;
+import lk.ijse.gdse.dao.impl.ComplaintDAOImpl;
 import lk.ijse.gdse.dto.ComplaintDTO;
 import lk.ijse.gdse.dto.UserDTO;
 import org.apache.commons.dbcp2.BasicDataSource;
@@ -23,6 +25,11 @@ import java.util.UUID;
 public class ComplaintServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        ServletContext servletContext = req.getServletContext();
+        BasicDataSource bds = (BasicDataSource) servletContext.getAttribute("dataSource");
+
+        ComplaintDAO complaintDAO = new ComplaintDAOImpl(bds);
+
         String action = req.getParameter("action");
         String id = req.getParameter("id");
         String userName = req.getParameter("userName");
@@ -31,50 +38,34 @@ public class ComplaintServlet extends HttpServlet {
         String date = req.getParameter("date");
 
 
-        ServletContext servletContext = req.getServletContext();
-        BasicDataSource bds = (BasicDataSource) servletContext.getAttribute("dataSource");
+        UserDTO userDTO = (UserDTO) req.getSession().getAttribute("user");
+
+        ComplaintDTO complaintDTO = new ComplaintDTO();
+        complaintDTO.setId(id);
+        complaintDTO.setUserName(userName);
+        complaintDTO.setTitle(title);
+        complaintDTO.setComplaint(complaint);
+        complaintDTO.setDate(date);
 
         try{
-            Connection conn = bds.getConnection();
-            int result = 0;
+            boolean result = false;
 
-            if("save".equalsIgnoreCase(action)) {
-
-                UserDTO user = (UserDTO) req.getSession().getAttribute("user");
-                PreparedStatement ps = conn.prepareStatement("INSERT INTO Complaint (id, uid, username, title, complaint,date) VALUES (?,?,?,?,?,?)");
-                ps.setString(1, UUID.randomUUID().toString());
-                ps.setString(2, user.getId());
-                ps.setString(3, userName);
-                ps.setString(4, title);
-                ps.setString(5, complaint);
-                ps.setString(6, date);
-                result = ps.executeUpdate();
-
-            }else if("update".equalsIgnoreCase(action)) {
-                PreparedStatement ps = conn.prepareStatement("UPDATE Complaint SET username = ?, title = ?, complaint = ?, date = ? WHERE id = ?");
-
-                ps.setString(1, userName);
-                ps.setString(2, title);
-                ps.setString(3, complaint);
-                ps.setString(4, date);
-                ps.setString(5, id);
-                result = ps.executeUpdate();
-            }else if("delete".equalsIgnoreCase(action)) {
-                PreparedStatement ps = conn.prepareStatement("DELETE FROM Complaint WHERE id = ?");
-                ps.setString(1, id);
-                result = ps.executeUpdate();
+            switch (action) {
+                case "save":
+                    result = complaintDAO.saveComplaint(complaintDTO, userDTO.getId());
+                    break;
+                case "update":
+                    result = complaintDAO.updateComplaint(complaintDTO);
+                    break;
+                case "delete":
+                    result = complaintDAO.deleteComplaint(id);
+                    break;
             }
-
-            if(result > 0){
+            if(result){
                 resp.sendRedirect("Complain?status=success");
             }else {
                 resp.sendRedirect("UserDashboard.jsp?status=fail");
             }
-
-        } catch (SQLException e) {
-            throw new RuntimeException(e.getMessage());
-
-
         } catch (IOException e) {
             throw new RuntimeException(e.getMessage());
         }
@@ -85,26 +76,14 @@ public class ComplaintServlet extends HttpServlet {
         ServletContext servletContext = req.getServletContext();
         BasicDataSource bds = (BasicDataSource) servletContext.getAttribute("dataSource");
 
+        ComplaintDAO complaintDAO = new ComplaintDAOImpl(bds);
+
+        UserDTO userDTO = (UserDTO) req.getSession().getAttribute("user");
         try{
-            Connection conn = bds.getConnection();
-            List<ComplaintDTO> complaints = new ArrayList<>();
-            UserDTO user = (UserDTO) req.getSession().getAttribute("user");
-            PreparedStatement preparedStatement;
-                preparedStatement = conn.prepareStatement("SELECT * FROM Complaint WHERE uid = ?");
-            preparedStatement.setString(1, user.getId());
-            ResultSet resultSet = preparedStatement.executeQuery();
-            while(resultSet.next()){
-                ComplaintDTO complaintDTO = new ComplaintDTO();
-                complaintDTO.setId(resultSet.getString("id"));
-                complaintDTO.setUserName(resultSet.getString("username"));
-                complaintDTO.setTitle(resultSet.getString("title"));
-                complaintDTO.setComplaint(resultSet.getString("complaint"));
-                complaintDTO.setDate(resultSet.getDate("date"));
-                complaints.add(complaintDTO);
-            }
+            List<ComplaintDTO> complaints = complaintDAO.getAllComplaint(userDTO.getId());
             req.setAttribute("complaints", complaints);
             req.getRequestDispatcher("UserDashboard.jsp").forward(req, resp);
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
             resp.sendRedirect("UserDashboard.jsp?status=error");
         }
