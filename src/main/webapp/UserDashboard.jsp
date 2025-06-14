@@ -1,6 +1,8 @@
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="lk.ijse.gdse.dto.UserDTO" %>
+<%@ page import="lk.ijse.gdse.dto.ComplaintDTO" %>
+<%@ page import="java.util.List" %>
 <%
     UserDTO userDTO = (UserDTO) session.getAttribute("user");
     if(userDTO == null || !userDTO.getRole().equalsIgnoreCase("user")){
@@ -28,8 +30,8 @@
         <form method="get" action="Complain">
             <div class="container-fluid searchBarParent my-4">
                 <div class="input-group mb-3 searchBar">
-                    <input id="inputSearch" type="text" class="searchInputField form-control" placeholder="Search Your Complaints" aria-label="Recipient's username" aria-describedby="button-addon2">
-                    <button class="btn btn-outline-secondary searchBtn" type="button" id="button-addonC">Search</button>
+                    <input id="inputSearch" type="text" name="search" class="searchInputField form-control" placeholder="Search Your Complaints" aria-label="Recipient's username" aria-describedby="button-addon2">
+                    <button class="btn btn-outline-secondary searchBtn" type="submit" id="button-addonC">Search</button>
                 </div>
             </div>
         </form>
@@ -91,7 +93,7 @@
                         <button type="submit" id="delete" class="btn btn-black">Delete Complaint</button>
 
                     </div>
-                    <input type="hidden" id="employee-id" />
+                    <input type="hidden" id="employee-id" name="id" />
                 </form>
             </div>
         </div>
@@ -104,7 +106,6 @@
                 <table class="table table-hover table-bordered align-middle text-center" id="employee-table">
                     <thead class="table-light">
                     <tr>
-                        <th>Action</th>
                         <th>User Name</th>
                         <th>Title</th>
                         <th>Complaint</th>
@@ -112,7 +113,22 @@
                     </tr>
                     </thead>
                     <tbody id="tbody">
+                    <%
+                        List<ComplaintDTO> complaintList = (List<ComplaintDTO>) request.getAttribute("complaints");
+                        if(complaintList != null){
+                            for (ComplaintDTO complaintDTO : complaintList) {
+                    %>
+                        <tr onclick="fillForm('<%= complaintDTO.getUserName()%>',' <%= complaintDTO.getTitle()%>', '<%= complaintDTO.getComplaint() %>', '<%= complaintDTO.getDate() %>')">
 
+                            <td><%= complaintDTO.getUserName()%></td>
+                            <td><%= complaintDTO.getTitle()%></td>
+                            <td><%= complaintDTO.getComplaint() %></td>
+                            <td><%= complaintDTO.getDate() %></td>
+                        </tr>
+                    <%
+                            }
+                        }
+                     %>
                     </tbody>
                 </table>
             </div>
@@ -125,6 +141,13 @@
 <script>
     const today = new Date().toISOString().split("T")[0];
     document.getElementById('date').value = today;
+
+   function  fillForm(name,title,complaint,date){
+       document.getElementById('name').value = name;
+       document.getElementById('title').value = title;
+       document.getElementById('complaint').value = complaint;
+       document.getElementById('date').value = date;
+   }
 </script>
 
 </body>
