@@ -91,7 +91,7 @@
                     <div class="text-center mt-4">
                         <button type="submit" id="save" name="action" value="save" class="btn btn-black">Submit Complaint</button>
                         <button type="submit" id="update" name="action" value="update" class="btn btn-black">Update Complaint</button>
-                        <button type="submit" id="delete" class="btn btn-black">Delete Complaint</button>
+                        <button type="submit" id="delete" name="action" value="delete" class="btn btn-black">Delete Complaint</button>
 
                     </div>
                     <input type="hidden" id="id" name="id" />

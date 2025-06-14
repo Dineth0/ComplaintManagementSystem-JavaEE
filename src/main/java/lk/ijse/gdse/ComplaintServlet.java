@@ -57,6 +57,10 @@ public class ComplaintServlet extends HttpServlet {
                 ps.setString(4, date);
                 ps.setString(5, id);
                 result = ps.executeUpdate();
+            }else if("delete".equalsIgnoreCase(action)) {
+                PreparedStatement ps = conn.prepareStatement("DELETE FROM Complaint WHERE id = ?");
+                ps.setString(1, id);
+                result = ps.executeUpdate();
             }
 
             if(result > 0){
