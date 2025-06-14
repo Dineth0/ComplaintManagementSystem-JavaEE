@@ -22,6 +22,8 @@ import java.util.UUID;
 public class ComplaintServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        String action = req.getParameter("action");
+        String id = req.getParameter("id");
         String userName = req.getParameter("userName");
         String title = req.getParameter("title");
         String complaint = req.getParameter("complaint");
@@ -33,14 +35,29 @@ public class ComplaintServlet extends HttpServlet {
 
         try{
             Connection conn = bds.getConnection();
-            PreparedStatement ps = conn.prepareStatement("INSERT INTO Complaint (id, username, title, complaint,date) VALUES (?,?,?,?,?)");
-            ps.setString(1, UUID.randomUUID().toString());
-            ps.setString(2, userName);
-            ps.setString(3, title);
-            ps.setString(4, complaint);
-            ps.setString(5, date);
+            int result = 0;
 
-            int result = ps.executeUpdate();
+            if("save".equalsIgnoreCase(action)) {
+
+
+                PreparedStatement ps = conn.prepareStatement("INSERT INTO Complaint (id, username, title, complaint,date) VALUES (?,?,?,?,?)");
+                ps.setString(1, UUID.randomUUID().toString());
+                ps.setString(2, userName);
+                ps.setString(3, title);
+                ps.setString(4, complaint);
+                ps.setString(5, date);
+                result = ps.executeUpdate();
+
+            }else if("update".equalsIgnoreCase(action)) {
+                PreparedStatement ps = conn.prepareStatement("UPDATE Complaint SET username = ?, title = ?, complaint = ?, date = ? WHERE id = ?");
+
+                ps.setString(1, userName);
+                ps.setString(2, title);
+                ps.setString(3, complaint);
+                ps.setString(4, date);
+                ps.setString(5, id);
+                result = ps.executeUpdate();
+            }
 
             if(result > 0){
                 resp.sendRedirect("UserDashboard.jsp?status=success");
@@ -49,10 +66,11 @@ public class ComplaintServlet extends HttpServlet {
             }
 
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException(e.getMessage());
+
 
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException(e.getMessage());
         }
     }
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

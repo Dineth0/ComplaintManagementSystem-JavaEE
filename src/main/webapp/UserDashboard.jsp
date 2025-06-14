@@ -58,6 +58,7 @@
                 }
             %>
 
+
             <div class="card-body">
                 <form action="Complain" method="POST">
                     <div class="row g-3">
@@ -88,12 +89,12 @@
 <%--                        </div>--%>
                     </div>
                     <div class="text-center mt-4">
-                        <button type="submit" id="save" class="btn btn-black">Submit Complaint</button>
-                        <button type="submit" id="update" class="btn btn-black">Update Complaint</button>
+                        <button type="submit" id="save" name="action" value="save" class="btn btn-black">Submit Complaint</button>
+                        <button type="submit" id="update" name="action" value="update" class="btn btn-black">Update Complaint</button>
                         <button type="submit" id="delete" class="btn btn-black">Delete Complaint</button>
 
                     </div>
-                    <input type="hidden" id="employee-id" name="id" />
+                    <input type="hidden" id="id" name="id" />
                 </form>
             </div>
         </div>
@@ -118,7 +119,7 @@
                         if(complaintList != null){
                             for (ComplaintDTO complaintDTO : complaintList) {
                     %>
-                        <tr onclick="fillForm('<%= complaintDTO.getUserName()%>',' <%= complaintDTO.getTitle()%>', '<%= complaintDTO.getComplaint() %>', '<%= complaintDTO.getDate() %>')">
+                        <tr onclick="fillForm('<%= complaintDTO.getUserName()%>',' <%= complaintDTO.getTitle()%>', '<%= complaintDTO.getComplaint() %>', '<%= complaintDTO.getDate() %>', '<%= complaintDTO.getId() %>')">
 
                             <td><%= complaintDTO.getUserName()%></td>
                             <td><%= complaintDTO.getTitle()%></td>
@@ -142,11 +143,12 @@
     const today = new Date().toISOString().split("T")[0];
     document.getElementById('date').value = today;
 
-   function  fillForm(name,title,complaint,date){
+   function  fillForm(name,title,complaint,date,id){
        document.getElementById('name').value = name;
        document.getElementById('title').value = title;
        document.getElementById('complaint').value = complaint;
        document.getElementById('date').value = date;
+       document.getElementById('id').value = id;
    }
 </script>
 
