@@ -7,6 +7,8 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="lk.ijse.gdse.dto.UserDTO" %>
+<%@ page import="lk.ijse.gdse.dto.ComplaintDTO" %>
+<%@ page import="java.util.List" %>
 <%
   UserDTO userDTO = (UserDTO) session.getAttribute("admin");
   if(userDTO == null || !userDTO.getRole().equalsIgnoreCase("admin")){
@@ -25,6 +27,7 @@
   <div class="card mt-5 shadow-sm">
 
     <div class="card-body">
+      <form action="Admin" method="get">
       <div class="table-responsive" id="table">
         <table class="table table-hover table-bordered align-middle text-center" id="employee-table">
           <thead class="table-light">
@@ -37,10 +40,26 @@
           </tr>
           </thead>
           <tbody id="tbody">
-                <td><button class="btn" style="background-color: darkred">View</button></td>
+          <%
+            List<ComplaintDTO> complaintList = (List<ComplaintDTO>) request.getAttribute("complaints");
+            if(complaintList != null){
+              for (ComplaintDTO complaintDTO : complaintList) {
+          %>
+          <tr>
+            <td><button class="btn btn-danger">View</button></td>
+            <td><%= complaintDTO.getUserName()%></td>
+            <td><%= complaintDTO.getTitle()%></td>
+            <td><%= complaintDTO.getComplaint() %></td>
+            <td><%= complaintDTO.getDate() %></td>
+          </tr>
+          <%
+              }
+            }
+          %>
           </tbody>
         </table>
       </div>
+      </form>
     </div>
   </div>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"
