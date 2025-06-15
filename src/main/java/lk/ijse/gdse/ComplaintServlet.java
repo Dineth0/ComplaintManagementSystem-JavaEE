@@ -40,8 +40,8 @@ public class ComplaintServlet extends HttpServlet {
 
 
 
-        UserDTO userDTO = (UserDTO) req.getSession().getAttribute("user");
-        req.getSession().getAttribute("admin");
+        UserDTO userDTO = (UserDTO) req.getSession().getAttribute("");
+
 
 
         ComplaintDTO complaintDTO = new ComplaintDTO();
@@ -83,9 +83,19 @@ public class ComplaintServlet extends HttpServlet {
         ComplaintDAO complaintDAO = new ComplaintDAOImpl(bds);
 
         UserDTO userDTO = (UserDTO) req.getSession().getAttribute("user");
-        req.getSession().getAttribute("admin");
+        UserDTO adminDTO = (UserDTO) req.getSession().getAttribute("admin");
+
+        String uid = null;
+        if (userDTO != null) {
+            uid = userDTO.getId();
+        } else if (adminDTO != null) {
+            uid = adminDTO.getId();
+        } else {
+            resp.sendRedirect("login.jsp");
+            return;
+        }
         try{
-            List<ComplaintDTO> complaints = complaintDAO.getAllComplaint(userDTO.getId());
+            List<ComplaintDTO> complaints = complaintDAO.getAllComplaint(uid);
             req.setAttribute("complaints", complaints);
             req.getRequestDispatcher("UserDashboard.jsp").forward(req, resp);
         } catch (Exception e) {

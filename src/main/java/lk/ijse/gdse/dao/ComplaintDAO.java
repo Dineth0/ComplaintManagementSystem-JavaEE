@@ -9,4 +9,5 @@ public interface ComplaintDAO {
     boolean updateComplaint(ComplaintDTO complaintDTO);
     boolean deleteComplaint(String uid);
     List<ComplaintDTO> getAllComplaint(String uid);
+    ComplaintDTO getComplaintById(String id);
 }

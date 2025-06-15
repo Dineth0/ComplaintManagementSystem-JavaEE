@@ -29,10 +29,12 @@ public class AdminDAOImpl implements AdminDAO {
             while (rs.next()) {
                 ComplaintDTO complaintDTO = new ComplaintDTO(
                 rs.getString("id"),
+                        rs.getString("uid"),
                 rs.getString("username"),
                 rs.getString("title"),
                 rs.getString("complaint"),
                 rs.getString("date")
+
                 );
                 complaints.add(complaintDTO);
             }

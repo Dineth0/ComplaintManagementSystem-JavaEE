@@ -86,6 +86,8 @@
 
                     </div>
                     <input type="hidden" id="id" name="id" value="<%= complaint != null ? complaint.getId() : "" %>" />
+                    <input type="hidden" id="uid" name="uid" value="<%= complaint != null ? complaint.getUid() : "" %>" />
+
                 </form>
             </div>
         </div>
@@ -134,12 +136,13 @@
     const today = new Date().toISOString().split("T")[0];
     document.getElementById('date').value = today;
 
-   function  fillForm(name,title,complaint,date,id){
+   function  fillForm(name,title,complaint,date,id, uid){
        document.getElementById('name').value = name;
        document.getElementById('title').value = title;
        document.getElementById('complaint').value = complaint;
        document.getElementById('date').value = date;
        document.getElementById('id').value = id;
+
    }
 </script>
 

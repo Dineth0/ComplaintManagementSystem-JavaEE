@@ -12,8 +12,12 @@ import java.util.Date;
 @Data
 public class ComplaintDTO {
     private String id;
+    private String uid;
     private String userName;
     private String title;
     private String Complaint;
     private String date;
+
+
+
 }

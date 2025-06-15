@@ -44,12 +44,13 @@ public class LoginServlet extends HttpServlet {
 
                 if(role.equalsIgnoreCase("admin")) {
                     session.setAttribute("admin", user);
-                    session.setAttribute("isAdmin", true);
+                   session.setAttribute("isAdmin", true);
                     resp.sendRedirect("Admin");
                 }else {
                     session.setAttribute("user", user);
-                    //resp.sendRedirect("UserDashboard.jsp");
                     resp.sendRedirect("Complain");
+                    //resp.sendRedirect("UserDashboard.jsp");
+
                 }
             }else {
                 resp.sendRedirect("login.jsp?error=true");

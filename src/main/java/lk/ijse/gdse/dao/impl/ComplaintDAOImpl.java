@@ -87,4 +87,29 @@ public class ComplaintDAOImpl implements ComplaintDAO {
         }
         return complaintDTOList;
     }
+
+    @Override
+    public ComplaintDTO getComplaintById(String id) {
+        try {
+            Connection connection = basicDataSource.getConnection();
+            PreparedStatement ps = connection.prepareStatement("SELECT * FROM Complaint WHERE id = ?");
+            ps.setString(1, id);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()){
+                return new ComplaintDTO(
+                        rs.getString("id"),
+                        rs.getString("uid"),
+                        rs.getString("username"),
+                        rs.getString("title"),
+                        rs.getString("complaint"),
+                        rs.getString("date")
+
+                );
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return null;
+    }
+
 }
