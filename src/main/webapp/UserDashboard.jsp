@@ -3,12 +3,8 @@
 <%@ page import="lk.ijse.gdse.dto.UserDTO" %>
 <%@ page import="lk.ijse.gdse.dto.ComplaintDTO" %>
 <%@ page import="java.util.List" %>
-<%
-    UserDTO userDTO = (UserDTO) session.getAttribute("user");
-    if(userDTO == null || !userDTO.getRole().equalsIgnoreCase("user")){
-        response.sendRedirect("login.jsp");
-    }
-   %>
+
+
 <html>
 <head>
     <title>Title</title>
@@ -54,21 +50,24 @@
             <div class="card-body">
                 <form action="Complain" method="POST">
                     <div class="row g-3">
+                        <%
+                            ComplaintDTO complaint = (ComplaintDTO) request.getAttribute("complaint");
+                        %>
                         <div class="col-md-6">
                             <label for="name" class="form-label">User Name</label>
-                            <input type="text" class="form-control" id="name" name="userName" placeholder="Enter name" required>
+                            <input type="text" class="form-control" id="name" name="userName" placeholder="Enter name" value="<%= complaint != null ? complaint.getUserName() : "" %>"  required>
                         </div>
                         <div class="col-md-6">
                             <label for="title" class="form-label">Complaint Title</label>
-                            <textarea class="form-control" id="title" name="title" placeholder="Enter Title" required></textarea>
+                            <textarea class="form-control" id="title" name="title" placeholder="Enter Title" required><%= complaint != null ? complaint.getTitle() : "" %></textarea>
                         </div>
                         <div class="col-md-6">
                             <label for="complaint" class="form-label">Complaint</label>
-                            <textarea t class="form-control" id="complaint" name="complaint" placeholder="Enter Complaint" required></textarea>
+                            <textarea t class="form-control" id="complaint" name="complaint" placeholder="Enter Complaint" required><%= complaint != null ? complaint.getComplaint() : "" %></textarea>
                         </div>
                         <div class="col-md-6">
                             <label for="date" class="form-label">Employee Image</label>
-                            <input type="date" name="date" class="form-control" id="date" required>
+                            <input type="date" name="date" class="form-control" id="date" value="<%= complaint != null ? complaint.getDate() : "" %>" required>
                         </div>
 <%--                        <div class="col-md-6">--%>
 <%--                            <label for="status" class="form-label">Complaint Status</label>--%>
@@ -86,7 +85,7 @@
                         <button type="submit" id="delete" name="action" value="delete" class="btn btn-black">Delete Complaint</button>
 
                     </div>
-                    <input type="hidden" id="id" name="id" />
+                    <input type="hidden" id="id" name="id" value="<%= complaint != null ? complaint.getId() : "" %>" />
                 </form>
             </div>
         </div>

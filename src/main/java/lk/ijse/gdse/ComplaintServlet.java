@@ -38,7 +38,11 @@ public class ComplaintServlet extends HttpServlet {
         String date = req.getParameter("date");
 
 
+
+
         UserDTO userDTO = (UserDTO) req.getSession().getAttribute("user");
+        req.getSession().getAttribute("admin");
+
 
         ComplaintDTO complaintDTO = new ComplaintDTO();
         complaintDTO.setId(id);
@@ -79,6 +83,7 @@ public class ComplaintServlet extends HttpServlet {
         ComplaintDAO complaintDAO = new ComplaintDAOImpl(bds);
 
         UserDTO userDTO = (UserDTO) req.getSession().getAttribute("user");
+        req.getSession().getAttribute("admin");
         try{
             List<ComplaintDTO> complaints = complaintDAO.getAllComplaint(userDTO.getId());
             req.setAttribute("complaints", complaints);

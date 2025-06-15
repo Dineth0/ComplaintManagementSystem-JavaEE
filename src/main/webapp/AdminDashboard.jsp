@@ -46,7 +46,14 @@
               for (ComplaintDTO complaintDTO : complaintList) {
           %>
           <tr>
-            <td><button class="btn btn-danger">View</button></td>
+            <td>
+              <a href="ComplaintViewServlet?id=<%= complaintDTO.getId() %>
+                           &userName=<%= complaintDTO.getUserName() %>
+                           &title=<%= complaintDTO.getTitle() %>
+                           &complaint=<%= complaintDTO.getComplaint() %>
+                           &date=<%= complaintDTO.getDate() %>"
+                 class="btn btn-danger">View</a>
+            </td>
             <td><%= complaintDTO.getUserName()%></td>
             <td><%= complaintDTO.getTitle()%></td>
             <td><%= complaintDTO.getComplaint() %></td>
@@ -68,3 +75,4 @@
 
   </body>
 </html>
+
