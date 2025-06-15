@@ -44,6 +44,7 @@
                         <input type="password" class="form-control rounded-3" id="password" name="password" placeholder="Enter your password" required>
                     </div>
                     <div class="mb-3">
+                        <label for="role" class="form-label">Role</label>
                         <select class="form-control" name="role"  id="role" required>
                             <option value="">Select Role</option>
                             <option value="user">User</option>

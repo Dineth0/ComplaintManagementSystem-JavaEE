@@ -36,11 +36,13 @@ public class ComplaintServlet extends HttpServlet {
         String title = req.getParameter("title");
         String complaint = req.getParameter("complaint");
         String date = req.getParameter("date");
+        String status = req.getParameter("status");
+        String remark = req.getParameter("remark");
 
 
 
 
-        UserDTO userDTO = (UserDTO) req.getSession().getAttribute("");
+        UserDTO userDTO = (UserDTO) req.getSession().getAttribute("user");
 
 
 
@@ -50,6 +52,8 @@ public class ComplaintServlet extends HttpServlet {
         complaintDTO.setTitle(title);
         complaintDTO.setComplaint(complaint);
         complaintDTO.setDate(date);
+        complaintDTO.setStatus(status);
+        complaintDTO.setRemark(remark);
 
         try{
             boolean result = false;

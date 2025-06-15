@@ -17,6 +17,8 @@ public class ComplaintDTO {
     private String title;
     private String Complaint;
     private String date;
+    private String status;
+    private String remark;
 
 
 

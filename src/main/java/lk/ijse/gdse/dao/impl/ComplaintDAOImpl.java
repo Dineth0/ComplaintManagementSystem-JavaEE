@@ -22,13 +22,15 @@ public class ComplaintDAOImpl implements ComplaintDAO {
     public boolean saveComplaint(ComplaintDTO complaintDTO, String uid) {
         try {
             Connection conn = basicDataSource.getConnection();
-            PreparedStatement ps = conn.prepareStatement("INSERT INTO Complaint (id, uid, username, title, complaint,date) VALUES (?,?,?,?,?,?)");
+            PreparedStatement ps = conn.prepareStatement("INSERT INTO Complaint (id, uid, username, title, complaint,date, status, remark) VALUES (?,?,?,?,?,?,?,?)");
             ps.setString(1, UUID.randomUUID().toString());
             ps.setString(2, uid);
             ps.setString(3, complaintDTO.getUserName());
             ps.setString(4, complaintDTO.getTitle());
             ps.setString(5, complaintDTO.getComplaint());
             ps.setString(6, String.valueOf(complaintDTO.getDate()));
+            ps.setString(7, complaintDTO.getStatus());
+            ps.setString(8, complaintDTO.getRemark());
             return ps.executeUpdate() > 0;
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -39,13 +41,15 @@ public class ComplaintDAOImpl implements ComplaintDAO {
     public boolean updateComplaint(ComplaintDTO complaintDTO) {
         try{
             Connection connection = basicDataSource.getConnection();
-            PreparedStatement ps = connection.prepareStatement("UPDATE Complaint SET username = ?, title = ?, complaint = ?, date = ? WHERE id = ?");
+            PreparedStatement ps = connection.prepareStatement("UPDATE Complaint SET username = ?, title = ?, complaint = ?, date = ? ,status = ? , remark = ? WHERE id = ?");
 
             ps.setString(1, complaintDTO.getUserName());
             ps.setString(2, complaintDTO.getTitle());
             ps.setString(3, complaintDTO.getComplaint());
             ps.setString(4, String.valueOf(complaintDTO.getDate()));
-            ps.setString(5, complaintDTO.getId());
+            ps.setString(5, complaintDTO.getStatus());
+            ps.setString(6, complaintDTO.getRemark());
+            ps.setString(7, complaintDTO.getId());
             return ps.executeUpdate() > 0;
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -80,6 +84,8 @@ public class ComplaintDAOImpl implements ComplaintDAO {
                 complaintDTO.setTitle(rs.getString("title"));
                 complaintDTO.setComplaint(rs.getString("complaint"));
                 complaintDTO.setDate(rs.getString("date"));
+                complaintDTO.setStatus(rs.getString("status"));
+                complaintDTO.setRemark(rs.getString("remark"));
                 complaintDTOList.add(complaintDTO);
             }
         } catch (SQLException e) {
@@ -102,7 +108,9 @@ public class ComplaintDAOImpl implements ComplaintDAO {
                         rs.getString("username"),
                         rs.getString("title"),
                         rs.getString("complaint"),
-                        rs.getString("date")
+                        rs.getString("date"),
+                        rs.getString("status"),
+                        rs.getString("remark")
 
                 );
             }
