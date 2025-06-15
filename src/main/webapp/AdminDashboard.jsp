@@ -69,6 +69,21 @@
               <label for="date" class="form-label">Employee Image</label>
               <input type="date" name="date" class="form-control" id="date" value="<%= complaint != null ? complaint.getDate() : "" %>" required>
             </div>
+            <fieldset class="border p-4 rounded shadow-sm">
+              <legend class="float-none w-auto px-3">Admins Only</legend>
+              <div class="row">
+                <div class="col-md-6 md-3">
+                  <label for="status" class="form-label">Status</label>
+                  <input type="text" name="status" class="form-control" id="status" value="<%= complaint != null ? complaint.getStatus() : "" %>" required>
+
+                </div>
+
+                <div class="col-md-6 mb-3">
+                  <label for="remark" class="form-label">Remark</label>
+                  <input type="text" name="remark" class="form-control" id="remark" value="<%= complaint != null ? complaint.getRemark() : "" %>"  required>
+                </div>
+              </div>
+            </fieldset>
             <%--                        <div class="col-md-6">--%>
             <%--                            <label for="status" class="form-label">Complaint Status</label>--%>
             <%--                            <select class="form-control" name="status"  id="status" required>--%>
@@ -104,6 +119,8 @@
             <th>Title</th>
             <th>Complaint</th>
             <th>Date</th>
+            <th>Status</th>
+            <th>Remark</th>
           </tr>
           </thead>
           <tbody id="tbody">
@@ -112,12 +129,14 @@
             if(complaintList != null){
               for (ComplaintDTO complaintDTO : complaintList) {
           %>
-          <tr onclick="fillForm('<%= complaintDTO.getUserName()%>',' <%= complaintDTO.getTitle()%>', '<%= complaintDTO.getComplaint() %>', '<%= complaintDTO.getDate() %>', '<%= complaintDTO.getId() %>')">
+          <tr onclick="fillForm('<%= complaintDTO.getUserName()%>',' <%= complaintDTO.getTitle()%>', '<%= complaintDTO.getComplaint() %>', '<%= complaintDTO.getDate() %>', '<%= complaintDTO.getId() %>', '<%= complaintDTO.getStatus() %>', '<%= complaintDTO.getRemark() %>')">
 
             <td><%= complaintDTO.getUserName()%></td>
             <td><%= complaintDTO.getTitle()%></td>
             <td><%= complaintDTO.getComplaint() %></td>
             <td><%= complaintDTO.getDate() %></td>
+            <td><%= complaintDTO.getStatus() %></td>
+            <td><%= complaintDTO.getRemark() %></td>
           </tr>
           <%
               }
@@ -136,12 +155,14 @@
   const today = new Date().toISOString().split("T")[0];
   document.getElementById('date').value = today;
 
-  function  fillForm(name,title,complaint,date,id, uid){
+  function  fillForm(name,title,complaint,date,id, status, remark){
     document.getElementById('name').value = name;
     document.getElementById('title').value = title;
     document.getElementById('complaint').value = complaint;
     document.getElementById('date').value = date;
     document.getElementById('id').value = id;
+    document.getElementById('status').value = status;
+    document.getElementById('remark').value = remark;
 
   }
 </script>

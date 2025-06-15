@@ -33,7 +33,9 @@ public class AdminDAOImpl implements AdminDAO {
                 rs.getString("username"),
                 rs.getString("title"),
                 rs.getString("complaint"),
-                rs.getString("date")
+                rs.getString("date"),
+                        rs.getString("status"),
+                        rs.getString("remark")
 
                 );
                 complaints.add(complaintDTO);
