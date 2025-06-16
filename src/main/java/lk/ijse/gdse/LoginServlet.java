@@ -48,7 +48,7 @@ public class LoginServlet extends HttpServlet {
                     resp.sendRedirect("Admin");
                 }else {
                     session.setAttribute("user", user);
-                    resp.sendRedirect("Complain");
+                    resp.sendRedirect("ComplaintServlet");
                     //resp.sendRedirect("UserDashboard.jsp");
 
                 }

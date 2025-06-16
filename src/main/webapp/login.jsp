@@ -26,10 +26,15 @@
         .btn-primary:hover {
             background-color: #357ABD;
         }
+        .loginBtn{
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
     </style>
 </head>
 <body>
-<div class="container d-flex justify-content-center align-items-center" style="min-height: 100vh;">
+<div class="container d-flex flex-column justify-content-center align-items-center" style="min-height: 100vh;">
     <div class="col-md-5">
         <div class="card login-card p-4">
             <div class="card-body">
@@ -51,7 +56,7 @@
                             <option value="admin">Admin</option>
                         </select>
                     </div>
-                    <div class="d-grid">
+                    <div class="loginBtn">
                         <button type="submit" class="btn btn-primary rounded-3" id="login">Login</button>
                     </div>
                     <% if (request.getParameter("error") != null) { %>

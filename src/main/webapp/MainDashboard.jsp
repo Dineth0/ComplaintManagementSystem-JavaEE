@@ -25,6 +25,11 @@
            border-radius: 1rem;
            opacity: 0.7;
        }
+       #loginBtn{
+           display: flex;
+           justify-content: center;
+           margin-top: 50px;
+       }
     </style>
 </head>
 <body>
@@ -41,7 +46,7 @@
         <div class="row justify-content-center">
             <div class="col-md-6" id="main">
                 <h1 style="text-align: center">Complaint Management System</h1>
-                <a href="login.jsp" class="btn btn-secondary mt-3">Login</a>
+                <a href="login.jsp" class="btn btn-secondary mt-3" id="loginBtn">Login</a>
             </div>
         </div>
     </div>

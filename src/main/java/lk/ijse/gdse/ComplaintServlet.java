@@ -6,6 +6,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import lk.ijse.gdse.dao.ComplaintDAO;
 import lk.ijse.gdse.dao.impl.ComplaintDAOImpl;
 import lk.ijse.gdse.dto.ComplaintDTO;
@@ -21,7 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-@WebServlet(name = "ComplaintServlet", value = "/Complain")
+@WebServlet(name = "ComplaintServlet", value = "/ComplaintServlet")
 public class ComplaintServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
@@ -44,9 +45,9 @@ public class ComplaintServlet extends HttpServlet {
 
         UserDTO userDTO = (UserDTO) req.getSession().getAttribute("user");
 
-
-
         ComplaintDTO complaintDTO = new ComplaintDTO();
+        complaintDTO.setUid(userDTO.getId());
+
         complaintDTO.setId(id);
         complaintDTO.setUserName(userName);
         complaintDTO.setTitle(title);
@@ -69,11 +70,15 @@ public class ComplaintServlet extends HttpServlet {
                     result = complaintDAO.deleteComplaint(id);
                     break;
             }
-            if(result){
-                resp.sendRedirect("Complain?status=success");
-            }else {
-                resp.sendRedirect("UserDashboard.jsp?status=fail");
+            HttpSession session = req.getSession();
+            if (result) {
+                session.setAttribute("status", "success");
+            } else {
+                session.setAttribute("status", "fail");
             }
+            resp.sendRedirect("ComplaintServlet");
+
+
         } catch (IOException e) {
             throw new RuntimeException(e.getMessage());
         }
@@ -101,7 +106,18 @@ public class ComplaintServlet extends HttpServlet {
         try{
             List<ComplaintDTO> complaints = complaintDAO.getAllComplaint(uid);
             req.setAttribute("complaints", complaints);
+            HttpSession session = req.getSession();
+            String status = (String) session.getAttribute("status");
+            if (status != null) {
+                req.setAttribute("status", status);
+                session.removeAttribute("status");
+            }
+
             req.getRequestDispatcher("UserDashboard.jsp").forward(req, resp);
+
+            System.out.println("STATUS: " + status);
+            System.out.println("COMPLAINTS SIZE: " + complaints.size());
+
         } catch (Exception e) {
             e.printStackTrace();
             resp.sendRedirect("UserDashboard.jsp?status=error");

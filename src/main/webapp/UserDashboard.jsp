@@ -28,27 +28,23 @@
             <div class="card-header  text-black">
                 <h5 class="mb-0 text-center">Save Complaints</h5>
             </div>
+            <% String status = (String) request.getAttribute("status");
+            %>
+            <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+                <div id="statusToast" class="toast align-items-center text-white bg-success border-0" role="alert" aria-live="assertive" aria-atomic="true">
+                    <div class="d-flex">
+                        <div class="toast-body" id="toast-body">
 
-            <%
-                String status = request.getParameter("status");
-                if ("success".equals(status)) {
-            %>
-            <div class="alert alert-success text-center mt-3">Complaint saved successfully!</div>
-            <%
-            } else if ("fail".equals(status)) {
-            %>
-            <div class="alert alert-danger text-center mt-3">Failed to save complaint. Please try again.</div>
-            <%
-            } else if ("error".equals(status)) {
-            %>
-            <div class="alert alert-warning text-center mt-3">An error occurred while saving the complaint.</div>
-            <%
-                }
-            %>
+                        </div>
+                        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                    </div>
+                </div>
+            </div>
+
 
 
             <div class="card-body">
-                <form action="Complain" method="POST">
+                <form action="ComplaintServlet" method="POST">
                     <div class="row g-3">
                         <%
                             ComplaintDTO complaint = (ComplaintDTO) request.getAttribute("complaint");
@@ -63,7 +59,7 @@
                         </div>
                         <div class="col-md-6">
                             <label for="complaint" class="form-label">Complaint</label>
-                            <textarea t class="form-control" id="complaint" name="complaint" placeholder="Enter Complaint" required><%= complaint != null ? complaint.getComplaint() : "" %></textarea>
+                            <textarea class="form-control" id="complaint" name="complaint" placeholder="Enter Complaint" required><%= complaint != null ? complaint.getComplaint() : "" %></textarea>
                         </div>
                         <div class="col-md-6">
                             <label for="date" class="form-label">Date</label>
@@ -87,24 +83,29 @@
                             </div>
                         </fieldset>
 
-<%--                        <div class="col-md-6">--%>
-<%--                            <label for="status" class="form-label">Complaint Status</label>--%>
-<%--                            <select class="form-control" name="status"  id="status" required>--%>
-<%--                                <option value=""></option>--%>
-<%--                                <option value="sent">sent</option>--%>
-<%--                                <option value="seen">seen</option>--%>
-<%--                                <option value="resolved">Resolved</option>--%>
-<%--                            </select>--%>
-<%--                        </div>--%>
                     </div>
                     <div class="text-center mt-4">
                         <button type="submit" id="save" name="action" value="save" class="btn btn-black">Submit Complaint</button>
                         <button type="submit" id="update" name="action" value="update" class="btn btn-black">Update Complaint</button>
                         <button type="submit" id="delete" name="action" value="delete" class="btn btn-black">Delete Complaint</button>
 
+
                     </div>
                     <input type="hidden" id="id" name="id" value="<%= complaint != null ? complaint.getId() : "" %>" />
-                    <input type="hidden" id="uid" name="uid" value="<%= complaint != null ? complaint.getUid() : "" %>" />
+                    <%
+                        UserDTO user = (UserDTO) session.getAttribute("user");
+                        if (user != null) {
+                    %>
+                    <input type="hidden" id="uid" name="uid" value="<%= user.getId() %>" />
+                    <%
+                    } else {
+                    %>
+                    <script>
+                        window.location.href = "login.jsp";
+                    </script>
+                    <%
+                        }
+                    %>
 
                 </form>
             </div>
@@ -129,10 +130,11 @@
                     <tbody id="tbody">
                     <%
                         List<ComplaintDTO> complaintList = (List<ComplaintDTO>) request.getAttribute("complaints");
+
                         if(complaintList != null){
                             for (ComplaintDTO complaintDTO : complaintList) {
                     %>
-                        <tr onclick="fillForm('<%= complaintDTO.getUserName()%>',' <%= complaintDTO.getTitle()%>', '<%= complaintDTO.getComplaint() %>', '<%= complaintDTO.getDate() %>', '<%= complaintDTO.getId() %>', '<%= complaintDTO.getStatus()%>', '<%= complaintDTO.getRemark()%>')">
+                        <tr onclick="fillForm('<%= complaintDTO.getUserName()%>','<%= complaintDTO.getTitle()%>', '<%= complaintDTO.getComplaint() %>', '<%= complaintDTO.getDate() %>', '<%= complaintDTO.getId() %>', '<%= complaintDTO.getStatus()%>', '<%= complaintDTO.getRemark()%>')">
 
                             <td><%= complaintDTO.getUserName()%></td>
                             <td><%= complaintDTO.getTitle()%></td>
@@ -147,6 +149,8 @@
                      %>
                     </tbody>
                 </table>
+                <button type="button" onclick="clearForm()" class="btn btn-secondary">New Complaint</button>
+
             </div>
         </div>
     </div>
@@ -167,9 +171,51 @@
        document.getElementById('status').value = status;
        document.getElementById('remark').value = remark;
 
-
    }
+    window.addEventListener('load', function() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const status = urlParams.get('status');
+
+        // if (status === 'success') {
+        //     // remove the ?status=success param and reload clean page
+        //     window.history.replaceState({}, document.title, window.location.pathname);
+        // }
+    });
+
+    const status = '<%= (status != null) ? status : "" %>';
+
+
+    if (status === "success") {
+        document.getElementById('toast-body').innerText = "Complaint saved successfully!";
+        document.getElementById('statusToast').classList.replace('bg-danger', 'bg-success');
+        new bootstrap.Toast(document.getElementById('statusToast')).show();
+    } else if (status === "fail") {
+        document.getElementById('toast-body').innerText = "Failed to save complaint!";
+        document.getElementById('statusToast').classList.replace('bg-success', 'bg-danger');
+        new bootstrap.Toast(document.getElementById('statusToast')).show();
+    } else if (status === "error") {
+        document.getElementById('toast-body').innerText = "An error occurred!";
+        document.getElementById('statusToast').classList.replace('bg-success', 'bg-warning');
+        new bootstrap.Toast(document.getElementById('statusToast')).show();
+    }
+
+
+    if (status === "success") {
+        document.getElementById('toast-body').innerText = "Complaint saved successfully!";
+        document.getElementById('statusToast').classList.replace('bg-danger', 'bg-success');
+        new bootstrap.Toast(document.getElementById('statusToast')).show();
+     document.getElementById('name').value = "";
+        document.getElementById('title').value = "";
+        document.getElementById('complaint').value = "";
+        document.getElementById('date').value = today;
+        document.getElementById('id').value = "";
+        document.getElementById('status').value = "Still Not Seen Complaint";
+        document.getElementById('remark').value = "No";
+    }
+
+
 </script>
+
 
 </body>
 </html>
