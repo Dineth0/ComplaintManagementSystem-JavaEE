@@ -1,15 +1,11 @@
 body{
-    background: linear-gradient(to right,#2D336B, #254D70)
+    background: linear-gradient(to right,#0F1035, #3D3B40)
 }
 .card-body{
     background-color:#213555;
-    border-bottom-left-radius: 20px;
-    border-bottom-right-radius: 20px;
+
 }
-.form-header{
-    border-top-left-radius: 20px;
-    border-top-right-radius: 20px;
-}
+
 input:focus{
     background-color: transparent;
     outline: white;
@@ -51,17 +47,7 @@ input.form-control:focus, textarea.form-control:focus {
 }
 
 
-.btn-secondary {
-    background-color: #5564AE;
-    border: none;
-    color: white;
-    transition: 0.3s ease;
-}
-.btn-secondary:hover {
-    background-color: #748CF1;
-    color: white;
-    transform: scale(1.05);
-}
+
 
 
 table tr:hover {
