@@ -13,19 +13,142 @@
 
     <style>
         body{
-            background: linear-gradient(to right,#222831, #948979)
+            background: linear-gradient(to right,#2D336B, #254D70)
         }
+        .card-body{
+            background-color:#213555;
+            border-bottom-left-radius: 20px;
+            border-bottom-right-radius: 20px;
+        }
+        .form-header{
+            border-top-left-radius: 20px;
+            border-top-right-radius: 20px;
+        }
+        input:focus{
+            background-color: transparent;
+            outline: white;
+        }
+        label{
+            color: white;
+        }
+        input.form-control, textarea.form-control {
+            background-color: #2A4167;
+            border: 1px solid #4C6FAF;
+            color: white;
+            border-radius: 10px;
+            transition: 0.3s;
+        }
+
+        input.form-control:focus, textarea.form-control:focus {
+            background-color: #1f2f4d;
+            border-color: #00BCD4;
+            box-shadow: 0 0 5px #00BCD4;
+            color: white;
+        }
+
+
+        .btn-black {
+            background-color: #394867;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin: 0 5px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-black:hover {
+            background-color: #607EAA;
+            color: #fff;
+            transform: scale(1.05);
+            box-shadow: 0 0 10px rgba(255,255,255,0.2);
+        }
+
+
+        .btn-secondary {
+            background-color: #5564AE;
+            border: none;
+            color: white;
+            transition: 0.3s ease;
+        }
+        .btn-secondary:hover {
+            background-color: #748CF1;
+            color: white;
+            transform: scale(1.05);
+        }
+
+
+        table tr:hover {
+            background-color: #374C75;
+            color: white;
+        }
+
+
+        fieldset {
+            border: 1px solid #6a8bc3 !important;
+        }
+        legend {
+            color: #ccc;
+        }
+        #employee-table {
+            background-color: #1f2f4d !important;
+            color: #ffffff !important;
+            border-collapse: collapse;
+        }
+
+        #employee-table th {
+            background-color: #2A4167 !important;
+            color: #ffffff !important;
+            font-weight: 600;
+        }
+
+        #employee-table td, #employee-table th {
+            padding: 12px;
+            border: 1px solid #3b4c68;
+        }
+        nav{
+            background: linear-gradient(to right,#4F959D, #648DB3);
+            z-index: 1;
+        }
+        img{
+            border-radius: 50%;
+        }
+
+
+
     </style>
 
 </head>
 <body>
+<%
+    ComplaintDTO complaint = (ComplaintDTO) request.getAttribute("complaint");
+%>
+<%
+    UserDTO user = (UserDTO) session.getAttribute("user");
+
+%>
+<header>
+    <nav class="navbar">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                <img src="assests/cmsLogo.png" alt="Logo" width="50" height="44" class="d-inline-block align-text-top">
+                Complaint Management System
+            </a>
+            <div  class="d-flex align-item-center" style="gap: 10px">
+                <label class="form-label text-white mb-0">You</label>
+                <input type="text" name="name" value="<%= user.getName() %>" readonly class="form-control w-auto">
+
+            </div>
+        </div>
+    </nav>
+</header>
 <main class="col-md-12 ms-sm-auto px-4">
     <div class="pt-5">
         <h1 class="text-center" style="color: white">Welcome to the User Dashboard</h1>
 
 
-        <div class="card mt-5 shadow-sm">
-            <div class="card-header  text-black">
+        <div class="card mt-5 shadow-sm" style="border-radius: 20px;">
+            <div class="card-header form-header  text-black" style="background-color: #3E5879; ">
                 <h5 class="mb-0 text-center">Save Complaints</h5>
             </div>
             <% String status = (String) request.getAttribute("status");
@@ -44,11 +167,9 @@
 
 
             <div class="card-body">
-                <form action="ComplaintServlet" method="POST">
+                <form action="ComplaintServlet" method="POST" style="border-radius: 20px;">
                     <div class="row g-3">
-                        <%
-                            ComplaintDTO complaint = (ComplaintDTO) request.getAttribute("complaint");
-                        %>
+
                         <div class="col-md-6">
                             <label for="name" class="form-label">User Name</label>
                             <input type="text" class="form-control" id="name" name="userName" placeholder="Enter name" value="<%= complaint != null ? complaint.getUserName() : "" %>"  required>
@@ -92,20 +213,10 @@
 
                     </div>
                     <input type="hidden" id="id" name="id" value="<%= complaint != null ? complaint.getId() : "" %>" />
-                    <%
-                        UserDTO user = (UserDTO) session.getAttribute("user");
-                        if (user != null) {
-                    %>
+
                     <input type="hidden" id="uid" name="uid" value="<%= user.getId() %>" />
-                    <%
-                    } else {
-                    %>
-                    <script>
-                        window.location.href = "login.jsp";
-                    </script>
-                    <%
-                        }
-                    %>
+
+
 
                 </form>
             </div>
@@ -113,7 +224,9 @@
 
     </div>
     <div class="card mt-5 shadow-sm">
-
+        <div class="card-header  text-black" style="background-color: #3E5879;">
+            <h5 class="mb-0 text-center">Your Complaints</h5>
+        </div>
         <div class="card-body">
             <div class="table-responsive" id="table">
                 <table class="table table-hover table-bordered align-middle text-center" id="employee-table">
@@ -134,19 +247,19 @@
                         if(complaintList != null){
                             for (ComplaintDTO complaintDTO : complaintList) {
                     %>
-                        <tr onclick="fillForm('<%= complaintDTO.getUserName()%>','<%= complaintDTO.getTitle()%>', '<%= complaintDTO.getComplaint() %>', '<%= complaintDTO.getDate() %>', '<%= complaintDTO.getId() %>', '<%= complaintDTO.getStatus()%>', '<%= complaintDTO.getRemark()%>')">
+                    <tr onclick="fillForm('<%= complaintDTO.getUserName()%>','<%= complaintDTO.getTitle()%>', '<%= complaintDTO.getComplaint() %>', '<%= complaintDTO.getDate() %>', '<%= complaintDTO.getId() %>', '<%= complaintDTO.getStatus()%>', '<%= complaintDTO.getRemark()%>')">
 
-                            <td><%= complaintDTO.getUserName()%></td>
-                            <td><%= complaintDTO.getTitle()%></td>
-                            <td><%= complaintDTO.getComplaint() %></td>
-                            <td><%= complaintDTO.getDate() %></td>
-                            <td><%= complaintDTO.getStatus() %></td>
-                            <td><%= complaintDTO.getRemark() %></td>
-                        </tr>
+                        <td><%= complaintDTO.getUserName()%></td>
+                        <td><%= complaintDTO.getTitle()%></td>
+                        <td><%= complaintDTO.getComplaint() %></td>
+                        <td><%= complaintDTO.getDate() %></td>
+                        <td><%= complaintDTO.getStatus() %></td>
+                        <td><%= complaintDTO.getRemark() %></td>
+                    </tr>
                     <%
                             }
                         }
-                     %>
+                    %>
                     </tbody>
                 </table>
                 <button type="button" onclick="clearForm()" class="btn btn-secondary">New Complaint</button>
@@ -162,16 +275,16 @@
     const today = new Date().toISOString().split("T")[0];
     document.getElementById('date').value = today;
 
-   function  fillForm(name,title,complaint,date,id, status, remark){
-       document.getElementById('name').value = name;
-       document.getElementById('title').value = title;
-       document.getElementById('complaint').value = complaint;
-       document.getElementById('date').value = date;
-       document.getElementById('id').value = id;
-       document.getElementById('status').value = status;
-       document.getElementById('remark').value = remark;
+    function  fillForm(name,title,complaint,date,id, status, remark){
+        document.getElementById('name').value = name;
+        document.getElementById('title').value = title;
+        document.getElementById('complaint').value = complaint;
+        document.getElementById('date').value = date;
+        document.getElementById('id').value = id;
+        document.getElementById('status').value = status;
+        document.getElementById('remark').value = remark;
 
-   }
+    }
     window.addEventListener('load', function() {
         const urlParams = new URLSearchParams(window.location.search);
         const status = urlParams.get('status');
@@ -204,7 +317,7 @@
         document.getElementById('toast-body').innerText = "Complaint saved successfully!";
         document.getElementById('statusToast').classList.replace('bg-danger', 'bg-success');
         new bootstrap.Toast(document.getElementById('statusToast')).show();
-     document.getElementById('name').value = "";
+        document.getElementById('name').value = "";
         document.getElementById('title').value = "";
         document.getElementById('complaint').value = "";
         document.getElementById('date').value = today;

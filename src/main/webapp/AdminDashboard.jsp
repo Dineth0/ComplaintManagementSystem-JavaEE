@@ -13,7 +13,7 @@
 
   <style>
     body{
-      background: linear-gradient(to right,#222831, #948979)
+      background: linear-gradient(to right,#0F1035, #201658)
     }
   </style>
 
@@ -84,15 +84,7 @@
                 </div>
               </div>
             </fieldset>
-            <%--                        <div class="col-md-6">--%>
-            <%--                            <label for="status" class="form-label">Complaint Status</label>--%>
-            <%--                            <select class="form-control" name="status"  id="status" required>--%>
-            <%--                                <option value=""></option>--%>
-            <%--                                <option value="sent">sent</option>--%>
-            <%--                                <option value="seen">seen</option>--%>
-            <%--                                <option value="resolved">Resolved</option>--%>
-            <%--                            </select>--%>
-            <%--                        </div>--%>
+
           </div>
           <div class="text-center mt-4">
             <button type="submit" id="save" name="action" value="save" class="btn btn-black">Submit Complaint</button>

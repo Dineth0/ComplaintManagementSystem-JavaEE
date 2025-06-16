@@ -11,9 +11,11 @@
             height: 100vh;
         }
         .login-card {
-            border: none;
+            border: 1px solid black;
             border-radius: 20px;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            box-shadow: 0 8px 20px rgba(10, 0, 0, 0.15);
+            background: linear-gradient(to right, #00809D, #5459AC);
+
         }
         .form-control:focus {
             box-shadow: none;
@@ -38,7 +40,7 @@
     <div class="col-md-5">
         <div class="card login-card p-4">
             <div class="card-body">
-                <h3 class="text-center mb-4">CMS Login</h3>
+                <h3 class="text-center mb-4">Login</h3>
                 <form action="LoginServlet" method="post">
                     <div class="mb-3">
                         <label for="username" class="form-label">Username</label>
