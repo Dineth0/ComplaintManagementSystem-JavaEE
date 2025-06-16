@@ -33,6 +33,9 @@
                 <input type="text" name="name" value="<%= user.getName() %>" readonly class="form-control w-auto">
 
             </div>
+            <form action="LogoutServlet" method="get">
+                <button type="submit" class="btn ms-2">Logout</button>
+            </form>
         </div>
     </nav>
 </header>

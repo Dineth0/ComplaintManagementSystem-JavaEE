@@ -31,6 +31,7 @@
         <input type="text" name="name" value="<%= user.getName() %>" readonly class="form-control w-auto">
 
       </div>
+
     </div>
   </nav>
 </header>
