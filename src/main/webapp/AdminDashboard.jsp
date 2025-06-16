@@ -13,12 +13,115 @@
 
   <style>
     body{
-      background: linear-gradient(to right,#0F1035, #201658)
+      background: linear-gradient(to right,#0F1035, #3D3B40)
+    }
+    .card-body{
+      background-color:#213555;
+
+    }
+
+    input:focus{
+      background-color: transparent;
+      outline: white;
+    }
+    label{
+      color: white;
+    }
+    input.form-control, textarea.form-control {
+      background-color: #2A4167;
+      border: 1px solid #4C6FAF;
+      color: white;
+      border-radius: 10px;
+      transition: 0.3s;
+    }
+
+    input.form-control:focus, textarea.form-control:focus {
+      background-color: #1f2f4d;
+      border-color: #00BCD4;
+      box-shadow: 0 0 5px #00BCD4;
+      color: white;
+    }
+
+
+    .btn-black {
+      background-color: #394867;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      margin: 0 5px;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+    }
+
+    .btn-black:hover {
+      background-color: #607EAA;
+      color: #fff;
+      transform: scale(1.05);
+      box-shadow: 0 0 10px rgba(255,255,255,0.2);
+    }
+
+
+
+
+
+    table tr:hover {
+      background-color: #374C75;
+      color: white;
+    }
+
+
+    fieldset {
+      border: 1px solid #6a8bc3 !important;
+    }
+    legend {
+      color: #ccc;
+    }
+    #employee-table {
+      background-color: #1f2f4d !important;
+      color: #ffffff !important;
+      border-collapse: collapse;
+    }
+
+    #employee-table th {
+      background-color: #2A4167 !important;
+      color: #ffffff !important;
+      font-weight: 600;
+    }
+
+    #employee-table td, #employee-table th {
+      padding: 12px;
+      border: 1px solid #3b4c68;
+    }
+    nav{
+      background: linear-gradient(to right,#4F959D, #648DB3);
+      z-index: 1;
+    }
+    img{
+      border-radius: 50%;
     }
   </style>
 
 </head>
 <body>
+<%
+  UserDTO user = (UserDTO) session.getAttribute("user");
+
+%>
+<header>
+  <nav class="navbar">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">
+        <img src="assests/cmsLogo.png" alt="Logo" width="50" height="44" class="d-inline-block align-text-top">
+        Complaint Management System
+      </a>
+      <div  class="d-flex align-item-center" style="gap: 10px">
+        <label class="form-label text-white mb-0">You</label>
+        <input type="text" name="name" value="<%= user.getName() %>" readonly class="form-control w-auto">
+
+      </div>
+    </div>
+  </nav>
+</header>
 <main class="col-md-12 ms-sm-auto px-4">
   <div class="pt-5">
     <h1 class="text-center" style="color: white">Welcome to the Admin Dashboard</h1>
@@ -55,19 +158,16 @@
             %>
             <div class="col-md-6">
               <label for="name" class="form-label">User Name</label>
-              <input type="text" class="form-control" id="name" name="userName" placeholder="Enter name" value="<%= complaint != null ? complaint.getUserName() : "" %>"  required>
+              <input type="text" class="form-control" id="name" name="userName" placeholder="Enter name" value="<%= complaint != null ? complaint.getUserName() : "" %>"  readonly>
             </div>
             <div class="col-md-6">
-              <label for="title" class="form-label">Complaint Title</label>
-              <textarea class="form-control" id="title" name="title" placeholder="Enter Title" required><%= complaint != null ? complaint.getTitle() : "" %></textarea>
+              <textarea class="form-control d-none" typeof="hidden" id="title" name="title" placeholder="Enter Title" required><%= complaint != null ? complaint.getTitle() : "" %></textarea>
             </div>
             <div class="col-md-6">
-              <label for="complaint" class="form-label">Complaint</label>
-              <textarea t class="form-control" id="complaint" name="complaint" placeholder="Enter Complaint" required><%= complaint != null ? complaint.getComplaint() : "" %></textarea>
+              <textarea  class="form-control d-none" id="complaint" name="complaint" placeholder="Enter Complaint" required><%= complaint != null ? complaint.getComplaint() : "" %></textarea>
             </div>
             <div class="col-md-6">
-              <label for="date" class="form-label">Employee Image</label>
-              <input type="date" name="date" class="form-control" id="date" value="<%= complaint != null ? complaint.getDate() : "" %>" required>
+              <input type="date" name="date" class="form-control d-none" id="date" value="<%= complaint != null ? complaint.getDate() : "" %>" required>
             </div>
             <fieldset class="border p-4 rounded shadow-sm">
               <legend class="float-none w-auto px-3">Admins Only</legend>
