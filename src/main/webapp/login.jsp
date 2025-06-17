@@ -33,6 +33,27 @@
             justify-content: center;
             margin-top: 20px;
         }
+        input:focus{
+            background-color: transparent;
+            outline: white;
+        }
+        label{
+            color: white;
+        }
+        input.form-control, select.form-control{
+            background-color: #2A4167;
+            border: 1px solid #4C6FAF;
+            color: white;
+            border-radius: 10px;
+            transition: 0.3s;
+        }
+
+        input.form-control:focus, select.form-control:focus{
+            background-color: #1f2f4d;
+            border-color: #00BCD4;
+            box-shadow: 0 0 5px #00BCD4;
+            color: white;
+        }
     </style>
 </head>
 <body>

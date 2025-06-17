@@ -14,11 +14,11 @@
            border-radius: 50%;
        }
        body{
-           background: linear-gradient(to right, #547792, #94B4C1, #213448);
+           background: linear-gradient(to right,#123458, #006A71);
        }
        #main{
-           border: 3px solid #771c1c;
-           background-color: #5459AC;
+           border: 3px solid #F9CB43;
+           background-color: #0A5EB0;
            width: 500px;
            height: 500px;
            box-shadow: #292828 10px 10px 2px;
@@ -29,6 +29,17 @@
            display: flex;
            justify-content: center;
            margin-top: 50px;
+       }
+       #loginBtn {
+           background-color: #788cee;
+           border: none;
+           color: white;
+           transition: 0.3s ease;
+       }
+       #loginBtn:hover {
+           background-color: #10c8d9;
+           color: white;
+
        }
     </style>
 </head>

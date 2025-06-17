@@ -31,7 +31,9 @@
         <input type="text" name="name" value="<%= user.getName() %>" readonly class="form-control w-auto">
 
       </div>
-
+      <form action="LogoutServlet" method="get">
+        <button type="submit" class="btn ms-2">Logout</button>
+      </form>
     </div>
   </nav>
 </header>
@@ -42,7 +44,7 @@
 
     <div class="card mt-5 shadow-sm">
       <div class="card-header  text-black">
-        <h5 class="mb-0 text-center">Save Complaints</h5>
+        <h5 class="mb-0 text-center">Update Complaints</h5>
       </div>
 
       <%
@@ -100,7 +102,6 @@
 
           </div>
           <div class="text-center mt-4">
-            <button type="submit" id="save" name="action" value="save" class="btn btn-black">Submit Complaint</button>
             <button type="submit" id="update" name="action" value="update" class="btn btn-black">Update Complaint</button>
             <button type="submit" id="delete" name="action" value="delete" class="btn btn-black">Delete Complaint</button>
 
