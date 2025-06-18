@@ -3,14 +3,14 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Login - Complaint Management System</title>
+    <title>Complaint Management System</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
        nav{
            background: linear-gradient(to right,#4F959D, #648DB3);
            z-index: 1;
        }
-       img{
+       #logo{
            border-radius: 50%;
        }
        body{
@@ -24,6 +24,12 @@
            box-shadow: #292828 10px 10px 2px;
            border-radius: 1rem;
            opacity: 0.7;
+
+           display: flex;
+           flex-direction: column;
+           align-items: center;
+           justify-content: flex-start;
+           padding: 10px;
        }
        #loginBtn{
            display: flex;
@@ -41,13 +47,19 @@
            color: white;
 
        }
+       #main img{
+           width: 100%;
+           height: 100%;
+           object-fit: cover;
+           border-radius: 1rem;
+       }
     </style>
 </head>
 <body>
 <nav class="navbar">
     <div class="container-fluid">
         <a class="navbar-brand" href="#">
-            <img src="assests/cmsLogo.png" alt="Logo" width="50" height="44" class="d-inline-block align-text-top">
+            <img src="assests/cmsLogo.png" id="logo" alt="Logo" width="50" height="44" class="d-inline-block align-text-top">
               Complaint Management System
         </a>
     </div>
@@ -56,6 +68,7 @@
     <div class="container text-white p-5">
         <div class="row justify-content-center">
             <div class="col-md-6" id="main">
+                <img src="assests/cms.png" alt="">
                 <h1 style="text-align: center">Complaint Management System</h1>
                 <a href="login.jsp" class="btn btn-secondary mt-3" id="loginBtn">Login</a>
             </div>
