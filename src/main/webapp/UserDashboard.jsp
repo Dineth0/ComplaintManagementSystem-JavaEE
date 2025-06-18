@@ -7,7 +7,7 @@
 
 <html>
 <head>
-    <title>Title</title>
+    <title>UserDashboard</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT" crossorigin="anonymous">
     <link href="user.css" rel="stylesheet" type="text/css">
@@ -90,7 +90,7 @@
                             <div class="row">
                                 <div class="col-md-6 md-3">
                                     <label for="status" class="form-label">Status</label>
-                                    <input type="text" name="status" class="form-control" id="status" value="Still Not Seen ComPlaint" readonly>
+                                    <input type="text" name="status" class="form-control" id="status" value="Still Not Seen Complaint" readonly>
 
                                 </div>
 
@@ -195,18 +195,25 @@
     const status = '<%= (status != null) ? status : "" %>';
 
 
-    if (status === "success") {
-        document.getElementById('toast-body').innerText = "Complaint saved successfully!";
-        document.getElementById('statusToast').classList.replace('bg-danger', 'bg-success');
-        new bootstrap.Toast(document.getElementById('statusToast')).show();
+    const toast = document.getElementById('statusToast');
+    const toastBody = document.getElementById('toast-body');
+
+    if (status === "saved") {
+        toastBody.innerText = "Complaint Saved Successfully";
+        toast.classList.replace('bg-danger', 'bg-success');
+        new bootstrap.Toast(toast).show();
+    } else if (status === "updated") {
+        toastBody.innerText = "Complaint updated successfully";
+        toast.classList.replace('bg-danger', 'bg-primary');
+        new bootstrap.Toast(toast).show();
+    } else if (status === "deleted") {
+        toastBody.innerText = "Complaint Deleted successfully";
+        toast.classList.replace('bg-danger', 'bg-warning');
+        new bootstrap.Toast(toast).show();
     } else if (status === "fail") {
-        document.getElementById('toast-body').innerText = "Failed to save complaint!";
-        document.getElementById('statusToast').classList.replace('bg-success', 'bg-danger');
-        new bootstrap.Toast(document.getElementById('statusToast')).show();
-    } else if (status === "error") {
-        document.getElementById('toast-body').innerText = "An error occurred!";
-        document.getElementById('statusToast').classList.replace('bg-success', 'bg-warning');
-        new bootstrap.Toast(document.getElementById('statusToast')).show();
+        toastBody.innerText = "fail";
+        toast.classList.replace('bg-success', 'bg-danger');
+        new bootstrap.Toast(toast).show();
     }
 
 

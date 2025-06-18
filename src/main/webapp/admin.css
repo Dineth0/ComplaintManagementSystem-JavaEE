@@ -13,7 +13,7 @@ input:focus{
 label{
     color: white;
 }
-input.form-control, textarea.form-control {
+input.form-control, select.form-select {
     background-color: #2A4167;
     border: 1px solid #4C6FAF;
     color: white;
@@ -21,7 +21,7 @@ input.form-control, textarea.form-control {
     transition: 0.3s;
 }
 
-input.form-control:focus, textarea.form-control:focus {
+input.form-control:focus, select.form-select:focus {
     background-color: #1f2f4d;
     border-color: #00BCD4;
     box-shadow: 0 0 5px #00BCD4;

@@ -3,10 +3,7 @@ package lk.ijse.gdse;
 import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
+import jakarta.servlet.http.*;
 import lk.ijse.gdse.dao.ComplaintDAO;
 import lk.ijse.gdse.dao.impl.ComplaintDAOImpl;
 import lk.ijse.gdse.dto.ComplaintDTO;
@@ -58,21 +55,25 @@ public class ComplaintServlet extends HttpServlet {
 
         try{
             boolean result = false;
+            String statusText = "";
 
             switch (action) {
                 case "save":
                     result = complaintDAO.saveComplaint(complaintDTO, userDTO.getId());
+                    statusText = "saved";
                     break;
                 case "update":
                     result = complaintDAO.updateComplaint(complaintDTO);
+                    statusText = "updated";
                     break;
                 case "delete":
                     result = complaintDAO.deleteComplaint(id);
+                    statusText = "deleted";
                     break;
             }
             HttpSession session = req.getSession();
             if (result) {
-                session.setAttribute("status", "success");
+                session.setAttribute("status", statusText); // saved / updated / deleted
             } else {
                 session.setAttribute("status", "fail");
             }
@@ -112,6 +113,12 @@ public class ComplaintServlet extends HttpServlet {
                 req.setAttribute("status", status);
                 session.removeAttribute("status");
             }
+            Cookie cookie = new Cookie("JSESSIONID", "");
+            cookie.setMaxAge(0);  // delete cookie
+            cookie.setPath("/");
+            resp.addCookie(cookie);
+//            resp.sendRedirect("UserDashboard.jsp");
+//            resp.sendRedirect("UserDashboard.jsp");
 
             req.getRequestDispatcher("UserDashboard.jsp").forward(req, resp);
 

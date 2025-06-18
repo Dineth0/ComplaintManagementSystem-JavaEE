@@ -16,6 +16,7 @@ import lk.ijse.gdse.dto.UserDTO;
 import org.apache.commons.dbcp2.BasicDataSource;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 @WebServlet(name = "AdminServlet", value = "/Admin")
@@ -26,10 +27,18 @@ public class AdminServlet extends HttpServlet {
         BasicDataSource bds = (BasicDataSource) servletContext.getAttribute("dataSource");
 
         AdminDAO adminDAO = new AdminDAOImpl(bds);
-
+        List<ComplaintDTO> complaints;
         try{
-            List<ComplaintDTO> complaints = adminDAO.getAllComplaints();
-            req.setAttribute("complaints", complaints);
+            String status = req.getParameter("search");
+            if(status != null && (status.equals("success") || status.equals("fail") || status.equals("error"))) {
+                complaints = adminDAO.getAllComplaints();
+                req.setAttribute("status", status);
+            } else if (status != null && !status.isEmpty()) {
+                complaints = adminDAO.getComplaintsByStatus(status);
+            } else {
+                complaints = adminDAO.getAllComplaints();
+            }
+             req.setAttribute("complaints", complaints);
             req.getRequestDispatcher("AdminDashboard.jsp").forward(req,resp);
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -71,21 +80,25 @@ public class AdminServlet extends HttpServlet {
             boolean result = false;
 
             switch (action) {
-                case "save":
-                    result = complaintDAO.saveComplaint(complaintDTO, userDTO.getId());
-                    break;
+
                 case "update":
                     result = complaintDAO.updateComplaint(complaintDTO);
+                    if(result){
+                        resp.sendRedirect("Admin?status=success");
+                    }else {
+                        resp.sendRedirect("AdminDashboard.jsp?status=fail");
+                    }
                     break;
                 case "delete":
                     result = complaintDAO.deleteComplaint(id);
+                    if(result){
+                        resp.sendRedirect("Admin?status=success");
+                    }else {
+                        resp.sendRedirect("AdminDashboard.jsp?status=fail");
+                    }
                     break;
             }
-            if(result){
-                resp.sendRedirect("Admin?status=success");
-            }else {
-                resp.sendRedirect("AdminDashboard.jsp?status=fail");
-            }
+
         } catch (IOException e) {
             throw new RuntimeException(e.getMessage());
         }

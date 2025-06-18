@@ -46,4 +46,34 @@ public class AdminDAOImpl implements AdminDAO {
         }
         return complaints;
     }
+
+    @Override
+    public List<ComplaintDTO> getComplaintsByStatus(String status) {
+        List<ComplaintDTO> complaintDTOList = new ArrayList<>();
+
+        try{
+            Connection connection = dataSource.getConnection();
+            PreparedStatement ps = connection.prepareStatement("SELECT * FROM Complaint WHERE status = ?");
+            ps.setString(1, status);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                ComplaintDTO complaintDTO = new ComplaintDTO(
+                        rs.getString("id"),
+                        rs.getString("uid"),
+                        rs.getString("username"),
+                        rs.getString("title"),
+                        rs.getString("complaint"),
+                        rs.getString("date"),
+                        rs.getString("status"),
+                        rs.getString("remark")
+                );
+                complaintDTOList.add(complaintDTO);
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return complaintDTOList;
+    }
 }
