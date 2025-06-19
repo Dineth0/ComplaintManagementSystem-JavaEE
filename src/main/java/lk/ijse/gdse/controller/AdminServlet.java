@@ -1,4 +1,4 @@
-package lk.ijse.gdse;
+package lk.ijse.gdse.controller;
 
 
 import jakarta.servlet.ServletContext;
@@ -38,7 +38,7 @@ public class AdminServlet extends HttpServlet {
             } else {
                 complaints = adminDAO.getAllComplaints();
             }
-             req.setAttribute("complaints", complaints);
+            req.setAttribute("complaints", complaints);
             req.getRequestDispatcher("AdminDashboard.jsp").forward(req,resp);
         } catch (Exception e) {
             throw new RuntimeException(e);

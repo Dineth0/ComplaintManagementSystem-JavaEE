@@ -1,4 +1,3 @@
-
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="lk.ijse.gdse.dto.UserDTO" %>
 <%@ page import="lk.ijse.gdse.dto.ComplaintDTO" %>
@@ -46,7 +45,7 @@
         <div class="input-group mb-3 searchBar">
           <input id="inputSearch" type="text" name="search" class="searchInputField form-control" placeholder="Search Complaints" aria-label="Recipient's username" aria-describedby="button-addon2">
           <button class="btn btn-outline-secondary searchBtn" type="button" id="button-addonC">Search</button>
-         </div>
+        </div>
       </div>
     </form>
 
@@ -181,35 +180,35 @@
     document.getElementById('remark').value = remark;
   }
 
-    const status = '<%= (status != null) ? status : "" %>';
+  const status = '<%= (status != null) ? status : "" %>';
 
 
-    if (status === "success") {
-      document.getElementById('toast-body').innerText = "Complaint saved successfully!";
-      document.getElementById('statusToast').classList.replace('bg-danger', 'bg-success');
-      new bootstrap.Toast(document.getElementById('statusToast')).show();
-    } else if (status === "fail") {
-      document.getElementById('toast-body').innerText = "Failed to save complaint!";
-      document.getElementById('statusToast').classList.replace('bg-success', 'bg-danger');
-      new bootstrap.Toast(document.getElementById('statusToast')).show();
-    } else if (status === "error") {
-      document.getElementById('toast-body').innerText = "An error occurred!";
-      document.getElementById('statusToast').classList.replace('bg-success', 'bg-warning');
-      new bootstrap.Toast(document.getElementById('statusToast')).show();
-    }
+  if (status === "success") {
+    document.getElementById('toast-body').innerText = "Complaint saved successfully!";
+    document.getElementById('statusToast').classList.replace('bg-danger', 'bg-success');
+    new bootstrap.Toast(document.getElementById('statusToast')).show();
+  } else if (status === "fail") {
+    document.getElementById('toast-body').innerText = "Failed to save complaint!";
+    document.getElementById('statusToast').classList.replace('bg-success', 'bg-danger');
+    new bootstrap.Toast(document.getElementById('statusToast')).show();
+  } else if (status === "error") {
+    document.getElementById('toast-body').innerText = "An error occurred!";
+    document.getElementById('statusToast').classList.replace('bg-success', 'bg-warning');
+    new bootstrap.Toast(document.getElementById('statusToast')).show();
+  }
 
 
-    if (status === "success") {
-      document.getElementById('toast-body').innerText = "Complaint saved successfully!";
-      document.getElementById('statusToast').classList.replace('bg-danger', 'bg-success');
-      new bootstrap.Toast(document.getElementById('statusToast')).show();
-      document.getElementById('name').value = "";
-      document.getElementById('title').value = "";
-      document.getElementById('complaint').value = "";
-      document.getElementById('date').value = today;
-      document.getElementById('id').value = "";
-      document.getElementById('status').value = "";
-      document.getElementById('remark').value = "";
+  if (status === "success") {
+    document.getElementById('toast-body').innerText = "Complaint saved successfully!";
+    document.getElementById('statusToast').classList.replace('bg-danger', 'bg-success');
+    new bootstrap.Toast(document.getElementById('statusToast')).show();
+    document.getElementById('name').value = "";
+    document.getElementById('title').value = "";
+    document.getElementById('complaint').value = "";
+    document.getElementById('date').value = today;
+    document.getElementById('id').value = "";
+    document.getElementById('status').value = "";
+    document.getElementById('remark').value = "";
 
 
   }

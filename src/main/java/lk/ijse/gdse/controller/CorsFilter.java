@@ -1,4 +1,4 @@
-package lk.ijse.gdse;
+package lk.ijse.gdse.controller;
 
 import jakarta.servlet.*;
 import jakarta.servlet.annotation.WebFilter;

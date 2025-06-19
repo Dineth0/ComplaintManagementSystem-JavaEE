@@ -54,6 +54,9 @@
             box-shadow: 0 0 5px #00BCD4;
             color: white;
         }
+        #signup{
+           margin : 5px;
+        }
     </style>
 </head>
 <body>
@@ -81,6 +84,8 @@
                     </div>
                     <div class="loginBtn">
                         <button type="submit" class="btn btn-primary rounded-3" id="login">Login</button>
+                        <a href="SignUp.jsp" class="btn btn-secondary mt-3" id="signup">SignUp</a>
+
                     </div>
                     <% if (request.getParameter("error") != null) { %>
                     <p class="text-danger mt-2">Invalid credentials</p>

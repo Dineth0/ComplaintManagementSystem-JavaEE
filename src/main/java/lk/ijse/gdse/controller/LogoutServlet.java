@@ -1,4 +1,4 @@
-package lk.ijse.gdse;
+package lk.ijse.gdse.controller;
 
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -8,7 +8,7 @@ import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 
-@WebServlet(name = "LogoutServlet", value = "/LogoutServlet")
+@WebServlet("/LogoutServlet")
 public class LogoutServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {

@@ -1,6 +1,5 @@
-package lk.ijse.gdse;
+package lk.ijse.gdse.controller;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.ServletContext;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -13,14 +12,8 @@ import lk.ijse.gdse.dto.UserDTO;
 import org.apache.commons.dbcp2.BasicDataSource;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.Map;
 
-@WebServlet(name = "LoginServlet", value = "/LoginServlet")
+@WebServlet("/LoginServlet")
 public class LoginServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {

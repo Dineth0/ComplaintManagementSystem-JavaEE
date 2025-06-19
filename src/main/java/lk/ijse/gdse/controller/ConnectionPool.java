@@ -1,4 +1,4 @@
-package lk.ijse.gdse;
+package lk.ijse.gdse.controller;
 
 import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletContextEvent;
@@ -17,8 +17,8 @@ public class ConnectionPool implements ServletContextListener {
         basicDataSource.setUrl("jdbc:mysql://localhost:3306/CMS");
         basicDataSource.setUsername("root");
         basicDataSource.setPassword("Ijse@1234");
-        basicDataSource.setInitialSize(5);
-        basicDataSource.setMaxTotal(5);
+        basicDataSource.setInitialSize(50);
+        basicDataSource.setMaxTotal(50);
 
         ServletContext servletContext = sce.getServletContext();
         servletContext.setAttribute("dataSource", basicDataSource);
