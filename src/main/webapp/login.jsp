@@ -74,14 +74,7 @@
                         <label for="password" class="form-label">Password</label>
                         <input type="password" class="form-control rounded-3" id="password" name="password" placeholder="Enter your password" required>
                     </div>
-                    <div class="mb-3">
-                        <label for="role" class="form-label">Role</label>
-                        <select class="form-control" name="role"  id="role" required>
-                            <option value="">Select Role</option>
-                            <option value="user">User</option>
-                            <option value="admin">Admin</option>
-                        </select>
-                    </div>
+
                     <div class="loginBtn">
                         <button type="submit" class="btn btn-primary rounded-3" id="login">Login</button>
                         <a href="SignUp.jsp" class="btn btn-secondary mt-3" id="signup">SignUp</a>

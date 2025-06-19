@@ -23,18 +23,18 @@ public class LoginServlet extends HttpServlet {
 
         String name = req.getParameter("username");
         String password = req.getParameter("password");
-        String role = req.getParameter("role");
+
 
         LoginDAO loginDAO = new LoginDAOImpl(bds);
 
         try {
-            UserDTO user = loginDAO.Login(name, password, role);
+            UserDTO user = loginDAO.Login(name, password);
 
             if (user != null) {
                 HttpSession session = req.getSession();
                 session.setAttribute("user", user);
 
-
+                String role = user.getRole();
                 if(role.equalsIgnoreCase("admin")) {
                     session.setAttribute("admin", user);
                    session.setAttribute("isAdmin", true);
