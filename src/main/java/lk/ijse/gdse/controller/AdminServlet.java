@@ -7,6 +7,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import lk.ijse.gdse.dao.AdminDAO;
 import lk.ijse.gdse.dao.ComplaintDAO;
 import lk.ijse.gdse.dao.impl.AdminDAOImpl;
@@ -78,26 +79,27 @@ public class AdminServlet extends HttpServlet {
 
         try{
             boolean result = false;
+            String statusText = "";
 
-            switch (action) {
+                switch (action) {
 
-                case "update":
-                    result = complaintDAO.updateComplaint(complaintDTO);
-                    if(result){
-                        resp.sendRedirect("Admin?status=success");
-                    }else {
-                        resp.sendRedirect("AdminDashboard.jsp?status=fail");
-                    }
-                    break;
-                case "delete":
-                    result = complaintDAO.deleteComplaint(id);
-                    if(result){
-                        resp.sendRedirect("Admin?status=success");
-                    }else {
-                        resp.sendRedirect("AdminDashboard.jsp?status=fail");
-                    }
-                    break;
-            }
+                    case "update":
+                        result = complaintDAO.updateComplaint(complaintDTO);
+                        statusText = "updated";
+                        break;
+                    case "delete":
+                        result = complaintDAO.deleteComplaint(id);
+                        statusText = "deleted";
+                        break;
+                }
+                HttpSession session = req.getSession();
+                if (result) {
+                    session.setAttribute("status", statusText); // saved / updated / deleted
+                } else {
+                    session.setAttribute("status", "fail");
+                }
+                resp.sendRedirect("ComplaintServlet");
+
 
         } catch (IOException e) {
             throw new RuntimeException(e.getMessage());
