@@ -1,4 +1,4 @@
-package lk.ijse.gdse.controller;
+package lk.ijse.gdse.db;
 
 import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletContextEvent;
@@ -8,7 +8,7 @@ import org.apache.commons.dbcp2.BasicDataSource;
 
 import java.sql.SQLException;
 @WebListener
-public class ConnectionPool implements ServletContextListener {
+public class DBConnectionPool implements ServletContextListener {
     @Override
     public void contextInitialized(ServletContextEvent sce) {
         BasicDataSource basicDataSource = new BasicDataSource();
