@@ -28,7 +28,7 @@
     .btn-primary:hover {
       background-color: #357ABD;
     }
-    .loginBtn{
+    .signup{
       display: flex;
       justify-content: center;
       margin-top: 20px;
@@ -62,7 +62,7 @@
     <div class="card login-card p-4">
       <div class="card-body">
         <h3 class="text-center mb-4">SignUp</h3>
-        <form action="LoginServlet" method="post">
+        <form action="singup" method="post">
           <div class="mb-3">
             <label for="username" class="form-label">Username</label>
             <input type="text" class="form-control rounded-3" id="username" name="username" placeholder="Enter your username" required>
@@ -73,17 +73,26 @@
           </div>
           <div class="mb-3">
             <label for="role" class="form-label">Role</label>
-            <select class="form-control" name="role"  id="role" required>
-              <option value="">Select Role</option>
-              <option value="user">User</option>
-              <option value="admin">Admin</option>
-            </select>
+            <input type="text" class="form-control rounded-3" id="role" name="role" value="user" placeholder="" readonly>
+
           </div>
-          <div class="loginBtn">
-            <button type="submit" class="btn btn-primary rounded-3" id="login">SignUp</button>
+          <input type="hidden" id="id" name="id" />
+
+          <%
+          String errorMessage = (String) request.getAttribute("errorMessage");
+          if (errorMessage != null) {
+          %>
+          <div class="alert alert-danger" role="alert">
+            <%= errorMessage %>
+          </div>
+          <%
+            }
+          %>
+
+          <div class="signup">
+            <button type="submit" class="btn btn-primary rounded-3" id="signup">SignUp</button>
           </div>
 
-          <p class="text-danger mt-2">Invalid credentials</p>
 
 
         </form>

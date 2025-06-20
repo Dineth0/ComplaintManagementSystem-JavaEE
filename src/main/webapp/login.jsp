@@ -31,7 +31,12 @@
         .loginBtn{
             display: flex;
             justify-content: center;
-            margin-top: 20px;
+
+        }
+        #signup{
+            display: flex;
+            justify-content: center;
+
         }
         input:focus{
             background-color: transparent;
@@ -77,7 +82,7 @@
 
                     <div class="loginBtn">
                         <button type="submit" class="btn btn-primary rounded-3" id="login">Login</button>
-                        <a href="SignUp.jsp" class="btn btn-secondary mt-3" id="signup">SignUp</a>
+                        <a href="SignUp.jsp" class="btn btn-primary mt-3" id="signup">SignUp</a>
 
                     </div>
                     <% if (request.getParameter("error") != null) { %>

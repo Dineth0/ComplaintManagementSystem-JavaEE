@@ -35,6 +35,7 @@ public class LoginDAOImpl implements LoginDAO {
                         rs.getString("role")
                 );
             }
+            conn.close();
             return null;
         } catch (SQLException e) {
             throw new RuntimeException(e);

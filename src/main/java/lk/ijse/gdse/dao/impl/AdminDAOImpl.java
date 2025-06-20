@@ -40,6 +40,7 @@ public class AdminDAOImpl implements AdminDAO {
                 );
                 complaints.add(complaintDTO);
             }
+            connection.close();
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -70,6 +71,7 @@ public class AdminDAOImpl implements AdminDAO {
                 );
                 complaintDTOList.add(complaintDTO);
             }
+            connection.close();
 
         } catch (SQLException e) {
             throw new RuntimeException(e);

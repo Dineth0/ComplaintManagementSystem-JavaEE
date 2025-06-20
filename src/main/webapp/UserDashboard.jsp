@@ -158,7 +158,6 @@
                     %>
                     </tbody>
                 </table>
-                <button type="button" onclick="clearForm()" class="btn btn-secondary">New Complaint</button>
 
             </div>
         </div>
