@@ -82,7 +82,7 @@ ScreenShots
 ![Login Page](webapp/assets/screenshots/Loginpage.png)
 
 ### 🔹 SignUp Page  
-![Signup Page](webapp/assets/screenshots/SignUppage.png)
+![Signup Page](webapp/assets/screenshots/SignupPage.png)
 
 ### 🔹 User Dashboard  
 ![User Dashboard](webapp/assets/screenshots/Userdashboard.png)
