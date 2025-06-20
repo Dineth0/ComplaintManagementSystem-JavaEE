@@ -1,5 +1,7 @@
-Complaint Management System (CMS)
+**Complaint Management System (CMS)*
+
 Project Overview
+
 The Complaint Management System (CMS) is a web-based application designed for internal municipal use. It allows employees to submit and track complaints, and administrators to manage complaint resolutions. It developed using JSP, Servlets, and JDBC under the MVC architecture.
 This application allows users to log complaints, view complaint history, and for admins to manage those complaints. It uses a fully synchronous request-response cycle with form-based input
 
