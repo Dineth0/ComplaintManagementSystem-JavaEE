@@ -75,13 +75,13 @@ Dineth Osanaka Nakandala
 YouTube this project - https://youtu.be/GnBgZuMiFZ0
 
 ### 🔹 Main Dashboard View  
-![Main Dashboard](src/main/webapp/assets/screenshots/Maindashboard (1).png)
+![Main Dashboard](src/main/webapp/assets/screenshots/MainDashboard.png)
 
 ### 🔹 Login Page  
 ![Login Page](src/main/webapp/assets/screenshots/login.png)
 
 ### 🔹 SignUp Page  
-![Signup Page](src/main/webapp/assets/screenshots/Signup.png)
+![Signup Page](src/main/webapp/assets/screenshots/signup.png)
 
 ### 🔹 User Dashboard  
 ![User Dashboard](src/main/webapp/assets/screenshots/Userdashboard.png)
@@ -93,7 +93,7 @@ YouTube this project - https://youtu.be/GnBgZuMiFZ0
 ![Admin Dashboard](src/main/webapp/assets/screenshots/Admindashboard.png)
 
 ### 🔹 Admin Dashboard Table  
-![Admin Dashboard Table](src/main/webapp/assets/screenshots/AdminDashboardTable.png)
+![Admin Dashboard Table](src/main/webapp/assets/screenshots/AdmindashboardTable.png)
 
 
 
