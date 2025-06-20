@@ -75,13 +75,26 @@ Dineth Osanaka Nakandala
 YouTube this project - https://youtu.be/GnBgZuMiFZ0
 
 ScreenShots
-![Main Dashboard View](webapp/assests/screenshots/Maindashboard.png)
-![Login Page View](webapp/assests/screenshots/Loginpage.png)
-![SignUp page View](webapp/assests/screenshots/SignUppage.png)
-![User Dashboard page View](webapp/assests/screenshots/Userdashboard.png)
-![User Dashboard Table View](webapp/assests/screenshots/UserdashboardTable.png)
-![Admin Dashboard page View](webapp/assests/screenshots/Admindashboard.png)
-![Admin Dashboard Table View](webapp/assests/screenshots/AdmindashboardTable.png)
+### 🔹 Main Dashboard View  
+![Main Dashboard](webapp/assests/screenshots/Maindashboard.png)
+
+### 🔹 Login Page  
+![Login Page](webapp/assetss/screenshots/Loginpage.png)
+
+### 🔹 SignUp Page  
+![Signup Page](webapp/assests/screenshots/SignUppage.png)
+
+### 🔹 User Dashboard  
+![User Dashboard](webapp/assests/screenshots/Userdashboard.png)
+
+### 🔹 User Dashboard  Table
+![User Dashboard](webapp/assests/screenshots/UserdashboardTable.png)
+
+### 🔹 Admin Dashboard  
+![Admin Dashboard](webapp/assests/screenshots/Admindashboard.png)
+
+### 🔹 Admin Dashboard  Table
+![Admin Dashboard](webapp/assests/screenshots/AdmindashboardTable.png)
 
 
 
