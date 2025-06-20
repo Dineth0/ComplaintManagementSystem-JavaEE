@@ -80,11 +80,14 @@
                         <input type="password" class="form-control rounded-3" id="password" name="password" placeholder="Enter your password" required>
                     </div>
 
-                    <div class="loginBtn">
-                        <button type="submit" class="btn btn-primary rounded-3" id="login">Login</button>
-                        <a href="SignUp.jsp" class="btn btn-primary mt-3" id="signup">SignUp</a>
+                    <p>Don't have an account? please Sign Up</p>
 
+
+                    <div class="loginBtn gap-2">
+                        <button type="submit" class="btn btn-primary rounded-3">Login</button>
+                        <a href="SignUp.jsp" class="btn btn-primary rounded-3 d-flex align-items-center justify-content-center">SignUp</a>
                     </div>
+
                     <% if (request.getParameter("error") != null) { %>
                     <p class="text-danger mt-2">Invalid credentials</p>
                     <% } %>

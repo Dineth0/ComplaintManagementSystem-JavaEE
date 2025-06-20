@@ -31,8 +31,13 @@ public class ComplaintDAOImpl implements ComplaintDAO {
             ps.setString(6, String.valueOf(complaintDTO.getDate()));
             ps.setString(7, complaintDTO.getStatus());
             ps.setString(8, complaintDTO.getRemark());
+
+            boolean isSaved = ps.executeUpdate() > 0;
+
+            ps.close();
             conn.close();
-            return ps.executeUpdate() > 0;
+
+            return isSaved;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -52,8 +57,12 @@ public class ComplaintDAOImpl implements ComplaintDAO {
             ps.setString(5, complaintDTO.getStatus());
             ps.setString(6, complaintDTO.getRemark());
             ps.setString(7, complaintDTO.getId());
+            boolean isUpdated = ps.executeUpdate() > 0;
+
+            ps.close();
             connection.close();
-            return ps.executeUpdate() > 0;
+
+            return isUpdated;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -65,8 +74,12 @@ public class ComplaintDAOImpl implements ComplaintDAO {
             Connection connection = basicDataSource.getConnection();
             PreparedStatement ps = connection.prepareStatement("DELETE FROM Complaint WHERE id = ?");
             ps.setString(1, uid);
+            boolean isDeleted = ps.executeUpdate() > 0;
+
+            ps.close();
             connection.close();
-            return ps.executeUpdate() > 0;
+
+            return isDeleted;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -91,7 +104,6 @@ public class ComplaintDAOImpl implements ComplaintDAO {
                 complaintDTO.setStatus(rs.getString("status"));
                 complaintDTO.setRemark(rs.getString("remark"));
                 complaintDTOList.add(complaintDTO);
-                connection.close();
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -119,7 +131,6 @@ public class ComplaintDAOImpl implements ComplaintDAO {
 
                 );
             }
-            connection.close();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

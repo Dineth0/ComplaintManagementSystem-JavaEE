@@ -94,11 +94,11 @@ public class AdminServlet extends HttpServlet {
                 }
                 HttpSession session = req.getSession();
                 if (result) {
-                    session.setAttribute("status", statusText); // saved / updated / deleted
+                    session.setAttribute("status", statusText);
                 } else {
                     session.setAttribute("status", "fail");
                 }
-                resp.sendRedirect("ComplaintServlet");
+                resp.sendRedirect("Admin");
 
 
         } catch (IOException e) {

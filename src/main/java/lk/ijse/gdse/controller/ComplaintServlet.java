@@ -73,7 +73,7 @@ public class ComplaintServlet extends HttpServlet {
             }
             HttpSession session = req.getSession();
             if (result) {
-                session.setAttribute("status", statusText); // saved / updated / deleted
+                session.setAttribute("status", statusText);
             } else {
                 session.setAttribute("status", "fail");
             }
