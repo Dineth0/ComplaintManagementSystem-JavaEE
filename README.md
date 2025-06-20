@@ -40,23 +40,23 @@ ComplaintManagementSystem-JavaEE/
 ├── src/main/java/lk/ijse/gdse/
 │   ├── controller/           # Servlet Controllers
 │   ├── dao/                  # DAO Interfaces
-│        ├──impl/             # DAO Implementations
-│   ├── dto/                  # DTO Classes
-│   └── db/                   # DBConnectionPool
+│   │   └── impl/             # DAO Implementations
+│   ├── dto/                  # DTO (JavaBeans)
+│   └── db/                   # DB connection pool utilities
 │
 ├── webapp/
-│   ├── WEB-INF/web.xml       # Servlet mappings
-│   ├── assets/               # Static files (CSS, JS, images)
+│   ├── WEB-INF/web.xml       # Servlet configuration
+│   ├── assets/               # Static assets (CSS, images)
 │   │   ├── css/
-|   |   └── images/
-|   ├── AdminDashboard.jsp    # Admin-specific dashboard
-│   ├── login.jsp             # Login page
-│   ├── MainDashboard.jsp     # Entry dashboard
-│   ├── SignUp.jsp            # Registration page
-│   ├── UserDashboard.jsp     # Users dashboard
+│   │   └── images/
+│   ├── AdminDashboard.jsp
+│   ├── login.jsp
+│   ├── MainDashboard.jsp
+│   ├── SignUp.jsp
+│   ├── UserDashboard.jsp
 │
 ├── README.md
-└── pom.xml                   # add Maven dependencies
+└── pom.xml                   # Maven dependency management
 
 Setup & Configuration Guide
 
@@ -74,13 +74,13 @@ Dineth Osanaka Nakandala
 YouTube this project - https://youtu.be/GnBgZuMiFZ0
 
 ScreenShots
-![Main Dashboard View](screenshots/Maindashboard.png)
-![Login Page View](screenshots/Loginpage.png)
-![SignUp page View](screenshots/SignUppage.png)
-![User Dashboard page View](screenshots/Userdashboard.png)
-![User Dashboard Table View](screenshots/UserdashboardTable.png)
-![Admin Dashboard page View](screenshots/Admindashboard.png)
-![Admin Dashboard Table View](screenshots/AdmindashboardTable.png)
+![Main Dashboard View](webapp/assests/screenshots/Maindashboard.png)
+![Login Page View](webapp/assests/screenshots/Loginpage.png)
+![SignUp page View](webapp/assests/screenshots/SignUppage.png)
+![User Dashboard page View](webapp/assests/screenshots/Userdashboard.png)
+![User Dashboard Table View](webapp/assests/screenshots/UserdashboardTable.png)
+![Admin Dashboard page View](webapp/assests/screenshots/Admindashboard.png)
+![Admin Dashboard Table View](webapp/assests/screenshots/AdmindashboardTable.png)
 
 
 
