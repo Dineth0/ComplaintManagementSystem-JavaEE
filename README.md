@@ -35,18 +35,18 @@ DAO and DTO classes act as the Model – they manage the data, perform database 
 
  Folder Structure
 
+```plaintext
 ComplaintManagementSystem-JavaEE/
-│
 ├── src/main/java/lk/ijse/gdse/
 │   ├── controller/           # Servlet Controllers
 │   ├── dao/                  # DAO Interfaces
 │   │   └── impl/             # DAO Implementations
 │   ├── dto/                  # DTO (JavaBeans)
-│   └── db/                   # DB connection pool utilities
+│   └── db/                   # DB connection pool
 │
 ├── webapp/
-│   ├── WEB-INF/web.xml       # Servlet configuration
-│   ├── assets/               # Static assets (CSS, images)
+│   ├── WEB-INF/web.xml       # Servlet config
+│   ├── assets/               # Static files (CSS, images)
 │   │   ├── css/
 │   │   └── images/
 │   ├── AdminDashboard.jsp
@@ -57,6 +57,7 @@ ComplaintManagementSystem-JavaEE/
 │
 ├── README.md
 └── pom.xml                   # Maven dependency management
+```
 
 Setup & Configuration Guide
 
