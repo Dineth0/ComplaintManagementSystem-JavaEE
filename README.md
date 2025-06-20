@@ -76,25 +76,25 @@ YouTube this project - https://youtu.be/GnBgZuMiFZ0
 
 ScreenShots
 ### 🔹 Main Dashboard View  
-![Main Dashboard](webapp/assests/screenshots/Maindashboard.png)
+![Main Dashboard](webapp/assets/screenshots/Maindashboard.png)
 
 ### 🔹 Login Page  
-![Login Page](webapp/assetss/screenshots/Loginpage.png)
+![Login Page](webapp/assets/screenshots/Loginpage.png)
 
 ### 🔹 SignUp Page  
-![Signup Page](webapp/assests/screenshots/SignUppage.png)
+![Signup Page](webapp/assets/screenshots/SignUppage.png)
 
 ### 🔹 User Dashboard  
-![User Dashboard](webapp/assests/screenshots/Userdashboard.png)
+![User Dashboard](webapp/assets/screenshots/Userdashboard.png)
 
 ### 🔹 User Dashboard  Table
-![User Dashboard](webapp/assests/screenshots/UserdashboardTable.png)
+![User Dashboard](webapp/assets/screenshots/UserdashboardTable.png)
 
 ### 🔹 Admin Dashboard  
-![Admin Dashboard](webapp/assests/screenshots/Admindashboard.png)
+![Admin Dashboard](webapp/assets/screenshots/Admindashboard.png)
 
 ### 🔹 Admin Dashboard  Table
-![Admin Dashboard](webapp/assests/screenshots/AdmindashboardTable.png)
+![Admin Dashboard](webapp/assets/screenshots/AdmindashboardTable.png)
 
 
 
